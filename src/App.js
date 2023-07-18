@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+// import StoryForm from "./story";
+import "./App.css";
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import Mainpage from "./components/Mainpage/mainpage";
+import Login from "./components/Login/login";
+import Register from "./components/Register/register";
+import Bookmarkpage from "./components/Bookmarkpage/bookmarkpage";
+const App = () => {
 
-function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Mainpage/>}></Route>
+          <Route exact path="/login" element={<Login/>}></Route>
+          <Route exact path="/register" element={<Register/>}></Route>
+          <Route exact path="/bookmarkpage" element={<Bookmarkpage/>}></Route>
+        </Routes>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;

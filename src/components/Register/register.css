@@ -1,0 +1,101 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  
+  
+  .register-modal {
+    position: fixed;
+    width: 50vw;
+    height: 40vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    z-index: 10000;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0px 4px 30px 0px rgba(255, 255, 255, 0.25);
+  }
+  .close-symbol {
+    margin-top: 5%;
+    margin-left: 90%;
+    cursor: pointer;
+  }
+  
+  .registration-data h1 {
+    color: #000;
+    text-align: center;
+    font-family: DM Sans;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+  
+  .username-details,
+  .user-password-details {
+    display: flex;
+    margin-top: 8%;
+    margin-left: 14%;
+  }
+  
+  .username-text p,
+  .password-text p {
+    color: #000;
+    text-align: center;
+    font-family: DM Sans;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  /* .username-input,.password-input{
+      margin-left: 10%;
+      width: 30vw;
+  } */
+  
+  .user-name,
+  .user-password {
+    margin-left: 24%;
+    width: 20vw;
+    height: 2vh;
+  }
+  .user-name {
+    margin-left: 21.5%;
+  }
+  
+  .registration-details-button {
+    margin-left: 39%;
+    margin-top: 5%;
+    border-radius: 20px;
+    background: #73abff;
+    border: none;
+    width: 10vw;
+    height: 3vh;
+  }
+  
+  .register-text {
+    color: #000;
+    text-align: center;
+    font-family: DM Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  .username-alert p {
+    color: #ff0e0e;
+    text-align: center;
+    font-family: DM Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 3%;
+  }

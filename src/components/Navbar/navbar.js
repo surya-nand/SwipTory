@@ -17,7 +17,6 @@ const Navbar = () => {
 
   const [isAddStoryFormOpen, setIsAddStoryFormOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isAddSlideClicked, setIsAddSlideClicked] = useState(false)
   const [slides, setSlides] = useState([
     {
       slide_heading: "",
@@ -101,7 +100,6 @@ const Navbar = () => {
 
 
   const handleAddSlide = () => {
-    setIsAddSlideClicked(true)
     if (slides.length >= 6) return; // Limit the number of slides to 6
 
     setSlides([
@@ -144,31 +142,41 @@ const Navbar = () => {
     setSlides((prevSlides) => {
       const updatedSlides = [...prevSlides];
       updatedSlides.splice(index, 1);
+      setCurrentSlideIndex(index-1)
+
+      if (index === currentSlideIndex ) {
+        // If the removed slide was the last slide, select the previous slide
+        // Otherwise, keep the currentSlideIndex unchanged
+        setCurrentSlideIndex(
+          index === updatedSlides.length ? currentSlideIndex - 1 : currentSlideIndex
+        );
+      }
+  
       return updatedSlides;
     });
   };
 
   const handleCloseAddStoryForm = () => {
-    setSlides([
-      {
-        slide_heading: "",
-        slide_description: "",
-        slide_imageurl: "",
-        slide_category: "",
-      },
-      {
-        slide_heading: "",
-        slide_description: "",
-        slide_imageurl: "",
-        slide_category: "",
-      },
-      {
-        slide_heading: "",
-        slide_description: "",
-        slide_imageurl: "",
-        slide_category: "",
-      },
-    ]);
+    // setSlides([
+    //   {
+    //     slide_heading: "",
+    //     slide_description: "",
+    //     slide_imageurl: "",
+    //     slide_category: "",
+    //   },
+    //   {
+    //     slide_heading: "",
+    //     slide_description: "",
+    //     slide_imageurl: "",
+    //     slide_category: "",
+    //   },
+    //   {
+    //     slide_heading: "",
+    //     slide_description: "",
+    //     slide_imageurl: "",
+    //     slide_category: "",
+    //   },
+    // ]);
     setIsAddStoryFormOpen(false);
   };
 

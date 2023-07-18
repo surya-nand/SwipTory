@@ -7,7 +7,9 @@ import bookmarkedSymbol from "./../../Assets/bookmarked.png";
 import unLikedSymbol from "./../../Assets/unliked.png";
 import unBookmarkedSymbol from "./../../Assets/unbookmarked.png";
 import closeSymbol from "./../../Assets/close.png";
+import closeSymbol2 from "./../../Assets/closesymbol.jpg";
 import shareSymbol from "./../../Assets/share.png";
+import editSymbol from "./../../Assets/edit.png";
 import { useNavigate, useLocation } from "react-router";
 
 const Base_URL = "http://localhost:5000";
@@ -30,6 +32,178 @@ function Filter() {
   const [isLiked, setIsLiked] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
   const [showAllStories, setShowAllStories] = useState(false);
+  const [isEditStoryFormOpen, setIsEditStoryFormOpen] = useState(false);
+  const [editingStory, setEditingStory] = useState([]);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [slides, setSlides] = useState([
+    {
+      slide_heading: "",
+      slide_description: "",
+      slide_imageurl: "",
+      slide_category: "",
+    },
+    {
+      slide_heading: "",
+      slide_description: "",
+      slide_imageurl: "",
+      slide_category: "",
+    },
+    {
+      slide_heading: "",
+      slide_description: "",
+      slide_imageurl: "",
+      slide_category: "",
+    },
+  ]);
+
+  const handleCloseAddStoryForm = () => {
+    setSlides([
+      {
+        slide_heading: "",
+        slide_description: "",
+        slide_imageurl: "",
+        slide_category: "",
+      },
+      {
+        slide_heading: "",
+        slide_description: "",
+        slide_imageurl: "",
+        slide_category: "",
+      },
+      {
+        slide_heading: "",
+        slide_description: "",
+        slide_imageurl: "",
+        slide_category: "",
+      },
+    ]);
+    setIsEditStoryFormOpen(false);
+  };
+
+  const handleAddSlide = () => {
+    if (slides.length >= 6) return; // Limit the number of slides to 6
+
+    setSlides([
+      ...slides,
+      {
+        slide_heading: "",
+        slide_description: "",
+        slide_imageurl: "",
+        slide_category: "",
+      },
+    ]);
+  };
+  const handleInputChange = (index, field, value) => {
+    const updatedSlides = [...slides];
+    updatedSlides[index][field] = value;
+    setSlides(updatedSlides);
+  };
+
+  const handleSlideClick = (index) => {
+    setCurrentSlideIndex(index);
+  };
+
+  const handleSlideButtonClick = (e, index) => {
+    e.preventDefault();
+    handleSlideClick(index);
+  };
+
+  const handlePreviousSlide = () => {
+    setCurrentSlideIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+  };
+
+  const handleNextSlide = () => {
+    setCurrentSlideIndex((prevIndex) =>
+      Math.min(prevIndex + 1, slides.length - 1)
+    );
+  };
+
+  const handleRemoveSlide = (index) => {
+    setSlides((prevSlides) => {
+      const updatedSlides = [...prevSlides];
+      updatedSlides.splice(index, 1);
+
+      if (index === currentSlideIndex) {
+        // If the removed slide was the last slide, select the previous slide
+        // Otherwise, keep the currentSlideIndex unchanged
+        setCurrentSlideIndex(
+          index === updatedSlides.length ? index - 1 : currentSlideIndex
+        );
+      }
+
+      return updatedSlides;
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validate minimum 3 slides
+    if (slides.length < 3) {
+      // Display an error message or handle it as per your app's design
+      alert("Please fill at least 3 slides");
+      return;
+    }
+    try {
+      const story = {
+        storyHeading: slides[0].slide_heading,
+        storyDescription: slides[0].slide_description,
+        storyCategory: slides[0].slide_category,
+        storyImageUrl: slides[0].slide_imageurl,
+        slides: slides.map((slide) => ({
+          slide_heading: slide.slide_heading,
+          slide_description: slide.slide_description,
+          slide_imageurl: slide.slide_imageurl,
+          slide_category: slide.slide_category,
+        })),
+        likesCount: 0,
+      };
+
+      if (loggedInUser) {
+        const editingStoryIndex = loggedInUser.stories.findIndex(
+          (userStory) => userStory._id === editingStory._id
+        );
+
+        loggedInUser.stories[editingStoryIndex] = story;
+      }
+
+      const category = {
+        category: slides[0].slide_category,
+      };
+
+      const response = await axios.post(
+        "http://localhost:5000/api/stories",
+        story
+      );
+
+      axios
+        .put(`${Base_URL}/api/storyUsers/${loggedInUser._id}`, loggedInUser)
+        .then((res) => {
+          console.log("User details updated:", res.data);
+        })
+        .catch((error) => {
+          console.log("Failed to update user details:", error);
+        });
+      await axios
+        .post(`${Base_URL}/api/categories`, category)
+        .then((res) => {
+          console.log("Category details updated:", res.data);
+        })
+        .catch((error) => {
+          console.log("Failed to update category details:", error);
+        });
+      console.log(response.data);
+      setIsEditStoryFormOpen(false);
+      navigate("/", {
+        state: {
+          loggedInUser: loggedInUser,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+      // Handle error state or display an error message to the user
+    }
+  };
 
   useEffect(() => {
     axios
@@ -187,6 +361,20 @@ function Filter() {
     }
   };
 
+  const handleStoryEditButton = (e, story) => {
+    e.stopPropagation();
+    setEditingStory(story);
+    setIsEditStoryFormOpen(true);
+    const initialSlides = story.slides.map((slide) => ({
+      slide_heading: slide.slide_heading,
+      slide_description: slide.slide_description,
+      slide_imageurl: slide.slide_imageurl,
+      slide_category: slide.slide_category,
+    }));
+    setSlides(initialSlides);
+    setCurrentSlideIndex(0);
+  };
+
   useEffect(() => {
     let timer;
     if (isStoryCardOpen) {
@@ -242,44 +430,65 @@ function Filter() {
         ))}
       </div>
       {loggedInUser && (
-  <div>
-    <div className="user-stories-component">
-      <div className="user-stories-title">Your Stories</div>
-      <div className="user-stories-block">
-        {loggedInUser.stories.length > 0 ? (
-          <>
-            {loggedInUser.stories.slice(0, showAllStories ? undefined : 4).map((story) => (
-              <div
-                className="story-card"
-                onClick={() => handleStoryCard(story)}
-                key={story._id}
-              >
-                <div className="story-heading">{story.storyHeading}</div>
-                <div className="story-description">{story.storyDescription}</div>
-                <div className="story-image">
-                  <img
-                    className="story-image-picture"
-                    src={story.storyImageUrl}
-                    alt="story"
-                  />
+        <div>
+          <div className="user-stories-component">
+            <div className="user-stories-title">Your Stories</div>
+            <div className="user-stories-block">
+              {loggedInUser.stories.length > 0 ? (
+                <>
+                  {loggedInUser.stories
+                    .slice(0, showAllStories ? undefined : 4)
+                    .map((story) => (
+                      <div
+                        className="story-card"
+                        onClick={() => handleStoryCard(story)}
+                        key={story._id}
+                      >
+                        <div className="story-heading">
+                          {story.storyHeading}
+                        </div>
+                        <div className="story-description">
+                          {story.storyDescription}
+                        </div>
+                        <div className="story-image">
+                          <img
+                            className="story-image-picture"
+                            src={story.storyImageUrl}
+                            alt="story"
+                          />
+                        </div>
+                        <div
+                          onClick={(e) => handleStoryEditButton(e, story)}
+                          className="story-edit-block"
+                        >
+                          <div className="story-edit-button">
+                            <img
+                              src={editSymbol}
+                              alt="edit-symbol"
+                              className="edit-symbol"
+                            ></img>
+                            <p>Edit</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  <div className="see-more-options">
+                    {loggedInUser.stories && (
+                      <span onClick={() => setShowAllStories(!showAllStories)}>
+                        {showAllStories ? "See Less" : "See More"}
+                      </span>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <div className="no-userstories-message">
+                  Your stories will appear here
                 </div>
-              </div>
-            ))}
-            <div className="see-more-options">
-              {loggedInUser.stories && (
-                <span onClick={() => setShowAllStories(!showAllStories)}>
-                  {showAllStories ? 'See Less' : 'See More'}
-                </span>
               )}
             </div>
-          </>
-        ) : (
-          <div className="no-userstories-message">Your stories will appear here</div>
-        )}
-      </div>
-    </div>
-  </div>
-)}
+          </div>
+        </div>
+      )}
 
       <div className="stories-component">
         {uniqueCategories.map((category) => {
@@ -423,6 +632,168 @@ function Filter() {
             </div>
           </div>
         </div>
+      )}
+      {isEditStoryFormOpen && (
+        <>
+          <div className="overlay">
+            <div className="addstory-modal">
+              <form method="POST" onSubmit={handleSubmit}>
+                <div
+                  className="close-addstoryform"
+                  onClick={handleCloseAddStoryForm}
+                >
+                  <img
+                    src={closeSymbol2}
+                    alt="close-symbol-pic"
+                    className="close-symbol-pic"
+                  ></img>
+                </div>
+                <div className="slides-number-message">
+                  <p>Add upto 6 slides</p>
+                </div>
+                <div className="story-slides-component">
+                  {slides.map((_, index) => (
+                    <>
+                      <button
+                        key={index}
+                        onClick={(e) => handleSlideButtonClick(e, index)}
+                        className={`each-slide ${
+                          index === currentSlideIndex ? "selected-slide" : ""
+                        }`}
+                      >
+                        Slide {index + 1}
+                      </button>
+                      {slides.length > 3 && index >= 3 && (
+                        <div className="close-symbol-container">
+                          <img
+                            src={closeSymbol2}
+                            alt="close-symbol"
+                            className="slide-close-symbol"
+                            onClick={() => handleRemoveSlide(index)}
+                          />
+                        </div>
+                      )}
+                    </>
+                  ))}
+                  {slides.length < 6 && (
+                    <button
+                      type="button"
+                      onClick={handleAddSlide}
+                      className="add-new-slide"
+                    >
+                      Add +
+                    </button>
+                  )}
+                </div>
+                <div>
+                  <div className="slide-inputs">
+                    <div className="slide-heading-input">
+                      <p>Heading :</p>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Your Heading"
+                        value={slides[currentSlideIndex].slide_heading}
+                        onChange={(e) =>
+                          handleInputChange(
+                            currentSlideIndex,
+                            "slide_heading",
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
+                    <div className="slide-description-input">
+                      <p>Description :</p>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Story Description"
+                        value={slides[currentSlideIndex].slide_description}
+                        onChange={(e) =>
+                          handleInputChange(
+                            currentSlideIndex,
+                            "slide_description",
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
+                    <div className="slide-image-input">
+                      <p>Image :</p>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Add Image URL"
+                        value={slides[currentSlideIndex].slide_imageurl}
+                        onChange={(e) =>
+                          handleInputChange(
+                            currentSlideIndex,
+                            "slide_imageurl",
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
+                    <div className="slide-category-input">
+                      <p>Category: </p>
+                      <select
+                        className="drop-down-menu"
+                        required
+                        value={slides[currentSlideIndex].slide_category}
+                        onChange={(e) =>
+                          handleInputChange(
+                            currentSlideIndex,
+                            "slide_category",
+                            e.target.value
+                          )
+                        }
+                      >
+                        <option value="">Select Category</option>
+                        <option value="Food">Food</option>
+                        <option value="Health and Fitness">
+                          Health and Fitness
+                        </option>
+                        <option value="Travel">Travel</option>
+                        <option value="Movie">Movie</option>
+                        <option value="Education">Education</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div className="post-story-buttons">
+                  <div className="previous-next-buttons">
+                    {currentSlideIndex > 0 && (
+                      <button
+                        type="button"
+                        className="previous-slide-button"
+                        onClick={handlePreviousSlide}
+                      >
+                        Previous
+                      </button>
+                    )}
+                    {currentSlideIndex < slides.length - 1 && (
+                      <button
+                        type="button"
+                        className="next-slide-button"
+                        onClick={handleNextSlide}
+                      >
+                        Next
+                      </button>
+                    )}
+                  </div>
+                  <div>
+                    {slides.length >= 3 && (
+                      <button className="post-story-button" type="submit">
+                        Post
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </>
       )}
     </>
   );

@@ -74,6 +74,39 @@
   object-fit: cover;
 }
 
+.story-edit-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3vh;
+  width: 8vh;
+  border-radius: 5vw;
+  background-color: #ffffff;
+  color: #000000;
+  position: relative;
+  text-align: center;
+  font-family: DM Sans;
+  font-size: 1.1vw;
+  font-style: normal;
+  font-weight: 550;
+  line-height: normal;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.story-edit-block{
+  margin-top: -26%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+  width: 100%;
+}
+
+.edit-symbol{
+  width: 25%;
+}
+
 .categories-component {
   display: flex;
   align-items: center;
@@ -203,7 +236,7 @@
   align-items: center;
   cursor: pointer;
   margin-top: 40%;
-  margin-left: -28%;
+  margin-left: -51.8%;
 }
 
 .story-card-overlay{

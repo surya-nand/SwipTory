@@ -431,8 +431,70 @@
   line-height: normal;
   margin-top: 3%;
 } */
+.mobile-menu-component{
+  display: none;
+}
+.mobile-menu-block{
+  display: none;
+}
 
 @media (max-width: 425px) and (min-width: 320px) {
+  .navbar-component {
+    width: 100vw;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: #fff;
+    box-shadow: 0px 4px 15px 0px rgba(255, 255, 255, 0.15);
+  }
+  .mobile-menu-component{
+    display: block;
+    display: flex;
+    justify-content: right;
+    margin-left: 50%;
+  }
+  .mobile-menu-block{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 8vh;
+    width: 100vw;
+    height: 30vh;
+    background-color: #fff;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mobile-login,.mobile-register{
+    width: 30vw;
+    height: 4vh;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: #ff7373;
+    border: none;
+    cursor: pointer;
+    color: aliceblue;
+    color: #fff;
+    text-align: center;
+    font-family: DM Sans;
+    font-size: 5vw;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-right: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5%;
+    margin-top: 5%;
+  }
+  
+
+  .register-component{
+    display: none;
+  }
+
 }
 
 

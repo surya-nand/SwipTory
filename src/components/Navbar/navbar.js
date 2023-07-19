@@ -4,6 +4,7 @@ import "./../Navbar/navbar.css";
 import closeSymbol from "./../../Assets/closesymbol.jpg";
 import profilePic from "./../../Assets/picture.jpg";
 import hamBurger from "./../../Assets/hamburger.png";
+import hamBurger2 from "./../../Assets/hamburger.png"
 import bookmark from "./../../Assets/bookmark.jpg";
 import { useNavigate, useLocation } from "react-router";
 import { useState } from "react";
@@ -17,6 +18,7 @@ const Navbar = () => {
 
   const [isAddStoryFormOpen, setIsAddStoryFormOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [slides, setSlides] = useState([
     {
       slide_heading: "",
@@ -187,6 +189,11 @@ const Navbar = () => {
   const handleUserLogout = () =>{
     navigate('/')
   }
+  //handling mobile functions
+
+  const handleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -310,6 +317,7 @@ const Navbar = () => {
             )}
           </div>
         ) : (
+          <>
           <div className="register-component">
             <button onClick={handleRegisterButton} className="register-button">
               <div className="register-now">Register Now</div>
@@ -318,6 +326,16 @@ const Navbar = () => {
               <div className="sign-in">Sign in</div>
             </button>
           </div>
+          <div onClick={handleMobileMenu} className="mobile-menu-component">
+             <img src={hamBurger2} alt="mobile-hamburger"></img>
+          </div>
+          {isMobileMenuOpen && (
+            <div className="mobile-menu-block">
+              <div onClick={handleSigninButton} className="mobile-login">login</div>
+              <div onClick={handleRegisterButton}   className="mobile-register">Register</div>
+            </div>
+          )}
+          </>
         )}
       </div>
       {isAddStoryFormOpen && (

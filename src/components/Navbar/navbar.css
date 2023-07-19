@@ -340,121 +340,41 @@
   margin-bottom: 10%;
 }
 
-
-/* .register-modal {
-  position: fixed;
-  width: 50vw;
-  height: 40vh;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
-  z-index: 10000;
-  border-radius: 20px;
-  background: #fff;
-  box-shadow: 0px 4px 30px 0px rgba(255, 255, 255, 0.25);
-}
-.close-symbol {
-  margin-top: 5%;
-  margin-left: 90%;
-  cursor: pointer;
-}
-
-.registration-data h1 {
-  color: #000;
-  text-align: center;
-  font-family: DM Sans;
-  font-size: 25px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-}
-
-.username-details,
-.user-password-details {
-  display: flex;
-  margin-top: 8%;
-  margin-left: 14%;
-}
-
-.username-text p,
-.password-text p {
-  color: #000;
-  text-align: center;
-  font-family: DM Sans;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-}
-/* .username-input,.password-input{
-    margin-left: 10%;
-    width: 30vw;
-} */
-
-/* .user-name,
-.user-password {
-  margin-left: 24%;
-  width: 20vw;
-  height: 2vh;
-}
-.user-name {
-  margin-left: 21.5%;
-}
-
-.registration-details-button {
-  margin-left: 39%;
-  margin-top: 5%;
-  border-radius: 20px;
-  background: #73abff;
-  border: none;
-  width: 10vw;
-  height: 3vh;
-}
-
-.register-text {
-  color: #000;
-  text-align: center;
-  font-family: DM Sans;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-}
-.username-alert p {
-  color: #ff0e0e;
-  text-align: center;
-  font-family: DM Sans;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  margin-top: 3%;
-} */
 .mobile-menu-component{
   display: none;
 }
 .mobile-menu-block{
   display: none;
 }
+.mobile-loggedin-hamburger{
+  display: none;
+}
+.mobile-loggedin-user-details{
+  display: none;
+}
+.mobile-add-story-heading{
+  display: none;
+}
 
-@media (max-width: 425px) and (min-width: 320px) {
+
+
+@media (max-width: 430px) and (min-width: 320px) {
   .navbar-component {
     width: 100vw;
     height: 10vh;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    background: #fff;
     box-shadow: 0px 4px 15px 0px rgba(255, 255, 255, 0.15);
   }
   .mobile-menu-component{
     display: block;
     display: flex;
     justify-content: right;
-    margin-left: 50%;
+    margin-left: 63%;
+    cursor: pointer;
   }
-  .mobile-menu-block{
+  .mobile-menu-block,.mobile-loggedin-user-details{
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -464,6 +384,10 @@
     background-color: #fff;
     justify-content: center;
     align-items: center;
+    z-index: 10;
+  }
+  .mobile-loggedin-user-details{
+    height: 44vh;
   }
 
   .mobile-login,.mobile-register{
@@ -488,12 +412,293 @@
     align-items: center;
     margin-bottom: 5%;
     margin-top: 5%;
+    cursor: pointer;
   }
   
 
   .register-component{
     display: none;
   }
+  .loggedin-component{
+    display: none;
+  }
+  .mobile-loggedin-hamburger{
+    display: block;
+    margin-left: 60%;
+    cursor: pointer;
+  }
+  .mobile-user-info{
+    display: flex;
+    margin-left: -20%;
+  }
+  .mobile-user-stories,.mobile-user-add-story,.mobile-user-bookmarks,.mobile-user-logout{
+    width: 35vw;
+    height: 4vh;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: #ff7373;
+    border: none;
+    cursor: pointer;
+    color: aliceblue;
+    color: #fff;
+    text-align: center;
+    font-family: DM Sans;
+    font-size: 5vw;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-right: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    z-index: 1;
+    cursor: pointer;
+  }
+  .mobile-username{
+    color: #000000;
+    text-align: center;
+    font-family: DM Sans;
+    font-size: 5vw;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-right: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15%;
+  }
+  .mobile-bookmarks{
+    width: 13%;
+    padding-right: 3px;
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+ 
+  .addstory-modal{
+    position: fixed;
+    width: 50%;
+    height: 48%;
+    top: 40%;
+    left: 43%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    z-index: 10000;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0px 4px 30px 0px rgba(255, 255, 255, 0.25);
+  }
+ 
+  .each-slide,.add-new-slide{
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    background: #FFF;
+    box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.10);
+    border: none;
+    width: 65px;
+    height: 25%;
+    color: #000;
+    text-align: center;
+    font-family: DM Sans;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-right: 2%;
+    margin-bottom: 28%;
+  }
+  .slide-close-symbol{
+    display: block;
+    width: 15%;
+    height: 50%;
+    margin-left: 330%;
+    margin-top: -70%;
+    cursor: pointer;
+  }
+   
+  .close-addstoryform{
+    margin-left: 95%;
+    margin-top: -1%;
+    width: 50%;
+    height: 50%;
+    cursor: pointer;
+  }
+  .close-symbol-pic{
+    width: 20%;
+    height: 8%;
+  }
+   
+  .mobile-add-story-heading{
+    display: block;
+    position: absolute;
+    color: #000;
+    text-align: center;
+    font-family: DM Sans;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: -25%;
+    margin-left: 5%;
+
+  }
+   .slides-number-message{
+    color: #474141;
+    font-family: DM Sans;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 0.5%;
+    margin-left: 60%;
+  }
+   .selected-slide {
+    border: 3px solid #00acd2;
+  }
+ 
+  .story-slides-block{
+    display: flex;
+    margin-top: 40%;
+    margin-left: -5%;
+  }
+  
+  .story-slides-component{
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    
+
+  } 
+  
+  
+  .story-slides-component{
+    margin-left: 7%;
+  }
+
+  .slide-heading-input,.slide-description-input,.slide-image-input,.slide-category-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  .slide-heading-input p,.slide-description-input p,.slide-image-input p,.slide-category-input p{
+    color: #000;
+    text-align: center;
+    font-family: DM Sans;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom:3%;
+    margin-top: 1%;
+    margin-left: -16%;
+  }
+  .slide-description-input p{
+    margin-left: -6%;
+  }
+  .slide-image-input p{
+    margin-left: -30%;
+  }
+  
+  .slide-heading-input input,.slide-description-input input,.slide-image-input input{
+    margin-left: 28%;
+    border: 1px solid #000;
+    background: #FFF;
+    width: 90%;
+    height: 3vh;
+    flex-shrink: 0;
+    color: #474141;
+    text-align:start;
+    font-family: DM Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 550;
+    line-height: normal;
+    margin-bottom: 3%;
+  } 
+  
+   .slide-description-input input{
+    width: 90%;
+    height: 10vh;
+    display: flex;
+    justify-content: left;
+  }
+  
+  .slide-image-input input{
+    margin-left: 28.5%;
+    width: 90%;
+  } 
+   
+  .slide-category-input select{
+    margin-left: 25%;
+    border: 1px solid #000;
+    background: #FFF;
+    width: 90%;
+    height: 3vh;
+    flex-shrink: 0;
+    margin-left: 24.35%;
+  }
+  
+  .slide-inputs{
+    margin-left: 12%;
+    margin-top: 2%;
+  }
+  
+  .drop-down-menu option{
+    color: #474141;
+    font-family: DM Sans;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 550;
+    line-height: normal;
+    width: 10%;
+  }
+  
+  .previous-slide-button, .next-slide-button,.post-story-button{
+    border-radius: 12px;
+    background: #7EFF73;
+    color: #FFF;
+    text-align: center;
+    font-family: DM Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 550;
+    line-height: normal;
+    border: none;
+    width: 14vw;
+    height: 3vh;
+    
+  }
+  
+  .post-story-buttons{
+    margin-top: 9%;
+    display: flex;
+    margin-left: 7%;
+  }
+  
+  .post-story-button{
+   background: #FF7373;
+  }
+  
+  .previous-next-buttons{
+    width: 100%;
+  }
+  
+  .next-slide-button{
+    background: #73ABFF;
+    margin-left: 3%;
+  }  
 
 }
 

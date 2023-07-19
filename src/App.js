@@ -5,8 +5,8 @@ import Mainpage from "./components/Mainpage/mainpage";
 import Login from "./components/Login/login";
 import Register from "./components/Register/register";
 import Bookmarkpage from "./components/Bookmarkpage/bookmarkpage";
+import Mobileuserpage from "./components/mobileuserpage/mobileuserpage";
 const App = () => {
-
   return (
     <div>
       <Router>
@@ -15,6 +15,7 @@ const App = () => {
           <Route exact path="/login" element={<Login/>}></Route>
           <Route exact path="/register" element={<Register/>}></Route>
           <Route exact path="/bookmarkpage" element={<Bookmarkpage/>}></Route>
+          <Route exact path="/mobilestories" element={<Mobileuserpage/>}></Route>
         </Routes>
       </Router>
     </div>

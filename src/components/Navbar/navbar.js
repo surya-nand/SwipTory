@@ -19,6 +19,7 @@ const Navbar = () => {
   const [isAddStoryFormOpen, setIsAddStoryFormOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMobileLoginMenuOpen, setIsMobileLoginMenuOpen] = useState(false)
   const [slides, setSlides] = useState([
     {
       slide_heading: "",
@@ -102,7 +103,7 @@ const Navbar = () => {
 
 
   const handleAddSlide = () => {
-    if (slides.length >= 6) return; // Limit the number of slides to 6
+    if (slides.length >= 6) return; 
 
     setSlides([
       ...slides,
@@ -147,8 +148,6 @@ const Navbar = () => {
       setCurrentSlideIndex(index-1)
 
       if (index === currentSlideIndex ) {
-        // If the removed slide was the last slide, select the previous slide
-        // Otherwise, keep the currentSlideIndex unchanged
         setCurrentSlideIndex(
           index === updatedSlides.length ? currentSlideIndex - 1 : currentSlideIndex
         );
@@ -159,26 +158,7 @@ const Navbar = () => {
   };
 
   const handleCloseAddStoryForm = () => {
-    // setSlides([
-    //   {
-    //     slide_heading: "",
-    //     slide_description: "",
-    //     slide_imageurl: "",
-    //     slide_category: "",
-    //   },
-    //   {
-    //     slide_heading: "",
-    //     slide_description: "",
-    //     slide_imageurl: "",
-    //     slide_category: "",
-    //   },
-    //   {
-    //     slide_heading: "",
-    //     slide_description: "",
-    //     slide_imageurl: "",
-    //     slide_category: "",
-    //   },
-    // ]);
+
     setIsAddStoryFormOpen(false);
   };
 
@@ -189,10 +169,24 @@ const Navbar = () => {
   const handleUserLogout = () =>{
     navigate('/')
   }
-  //handling mobile functions
 
+  //handling mobile functions
   const handleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
+
+  const handleMobileLoginMenu = () =>{
+    setIsMobileLoginMenuOpen(!isMobileLoginMenuOpen)
+  }
+ const[isMobileStory, setIsMobileStory] = useState(false)
+
+  const handleMobileUserStories = () => {
+    setIsMobileStory(!isMobileStory)
+    navigate("/mobilestories", {
+      state: {
+        loggedInUser:loggedInUser
+      },
+    });
   }
 
   const handleSubmit = async (e) => {
@@ -200,7 +194,7 @@ const Navbar = () => {
 
     // Validate minimum 3 slides
     if (slides.length < 3) {
-      // Display an error message or handle it as per your app's design
+      // Display an error message
       alert("Please fill at least 3 slides");
       return;
     }
@@ -279,7 +273,6 @@ const Navbar = () => {
       });
     } catch (error) {
       console.error(error);
-      // Handle error state or display an error message to the user
     }
   };
 
@@ -288,6 +281,7 @@ const Navbar = () => {
       <div className="navbar-component">
         <div className="website-title">SwipTory</div>
         {loggedInUser ? (
+          <>
           <div className="loggedin-component">
             <button
               onClick={handleBookmarksButton}
@@ -316,6 +310,29 @@ const Navbar = () => {
               </div>
             )}
           </div>
+          <div onClick={handleMobileLoginMenu} className="mobile-loggedin-hamburger">
+             <img src={hamBurger2} alt="loggedin-hamburger"></img>
+          </div>
+          {isMobileLoginMenuOpen && (
+            <div className="mobile-loggedin-user-details">
+              <div className="mobile-user-info">
+              <img
+                className="profile-pic"
+                src={profilePic}
+                alt="profile-pic"
+              ></img>
+              <div className="mobile-username">{loggedInUser.userName}</div>
+              </div>
+              <div className="mobile-user-stories" onClick={handleMobileUserStories}>Your stories</div>
+              <div className="mobile-user-add-story" onClick={handleAddStoryButton}o>Add Story</div>
+              <div className="mobile-user-bookmarks" onClick={handleBookmarksButton}>
+                <img src={bookmark} alt="mobile-bookmarks" className="mobile-bookmarks"></img>
+                <p>Bookmarks</p>
+              </div>
+              <div className="mobile-user-logout"  onClick ={handleUserLogout}>Logout</div>
+            </div>
+          )}
+          </>
         ) : (
           <>
           <div className="register-component">
@@ -356,6 +373,8 @@ const Navbar = () => {
                 <div className="slides-number-message">
                   <p>Add upto 6 slides</p>
                 </div>
+                <div className="story-slides-block">
+                  <div className="mobile-add-story-heading">Add story to your feed</div>
                 <div className="story-slides-component">
                   {slides.map((_, index) => (
                     <>
@@ -390,6 +409,7 @@ const Navbar = () => {
                     </button>
                   )}
                 </div>
+          
                 <div>
                   <div className="slide-inputs">
                     <div className="slide-heading-input">
@@ -465,6 +485,7 @@ const Navbar = () => {
                       </select>
                     </div>
                   </div>
+                </div>
                 </div>
                 <div className="post-story-buttons">
                   <div className="previous-next-buttons">

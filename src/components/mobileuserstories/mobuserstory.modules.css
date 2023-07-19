@@ -1,0 +1,370 @@
+@media (min-width: 320px) and (max-width: 430px) {
+    .stories-component{
+        display: none;
+    }
+
+    .story-card {
+        position: relative;
+        margin: 20px;
+        width: 40%;
+        max-height: 33vh;
+        margin-bottom: 80%;
+        margin-left: -1%;
+        cursor: pointer;
+      }
+      
+      .story-heading {
+        position: absolute;
+        width: 500%;
+        top: 150%;
+        left: 5%;
+        z-index: 2;
+        color: #fff;
+        font-family: DM Sans;
+        font-size: 23px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        padding: 5px;
+      }
+
+      .story-description {
+        position: absolute;
+        width: 500%;
+        top: 165%;
+        left: 5%;
+        z-index: 2;
+        color: #fff;
+        font-family: DM Sans;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        padding: 5px;
+      }
+      
+      .story-image {
+        position: relative;
+        width: 640%;
+        height: 70vh;
+        overflow: hidden;
+        margin-bottom: 10%;
+      }
+      
+      .story-image:before {
+        display: none;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 80%;
+        height: 30%;
+        background: linear-gradient(180deg, #000 58.26%, rgba(0, 0, 0, 0) 100%);
+        z-index: 1;
+      }
+      
+      .story-image:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 80%;
+        height: 25%;
+        background: linear-gradient(0deg, #000 58.26%, rgba(0, 0, 0, 0) 100%);
+        z-index: 1;
+      }
+      
+      .story-image-picture {
+        width: 80%;
+        height: 90%;
+        object-fit: cover;
+      }
+      
+      .story-edit-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 3vh;
+        width: 8vh;
+        border-radius: 5vw;
+        background-color: #ffffff;
+        color: #000000;
+        position: relative;
+        text-align: center;
+        font-family: DM Sans;
+        font-size: 1.1vw;
+        font-style: normal;
+        font-weight: 550;
+        line-height: normal;
+        cursor: pointer;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      }
+      
+      .story-edit-block {
+        margin-top: -26%;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        z-index: 2;
+        width: 100%;
+      }
+      
+      .edit-symbol {
+        width: 25%;
+      }
+/*     
+       .user-stories-component {
+        margin-top: 6%;
+        width: 100%;
+        /* display: flex;
+        flex-direction: column;
+        align-items: center; 
+      }
+      
+      .user-stories-title {
+        color: #000;
+        margin-top: 1%;
+        text-align: center;
+        font-family: DM Sans;
+        font-size: 1.95vw;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+      
+      .user-stories-block {
+        display: flex;
+      }
+      .no-userstories-message {
+        color: #000;
+        text-align: center;
+        font-family: DM Sans;
+        font-size: 1vw;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        margin-top: 3%;
+        margin-bottom: 5%;
+        width: 100%;
+      } */
+       
+      .story-block,.user-stories-block {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin: 20px;
+        justify-content: flex-start;
+        margin-bottom: 6%;
+      }
+      
+      .story-block-title,.user-stories-title{
+        color: #000;
+        margin-top: 4%;
+        text-align: center;
+        font-family: DM Sans;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+      
+      .see-more-option {
+        color: #ffffff;
+        position: relative;
+        text-align: center;
+        font-family: DM Sans;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        border-radius: 20px;
+        background: #ff7373;
+        width: 25%;
+        height: 4vh;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        cursor: pointer;
+        margin-left: 40%;
+        margin-top: -5%;
+      }
+      .story-card-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.9);
+        z-index: 9999;
+      }
+      .story-card-container {
+        position: fixed;
+        width: 50%;
+        height: 44vh;
+        top: 16%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        z-index: 10000;
+        border-radius: 20px;
+        fill: rgba(0, 0, 0, 0.9);
+        /* background:  -67.777px 0px / 139.986% 100% no-repeat; */
+      
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .slide-image {
+        position: relative;
+        width: 1110%;
+        height: 1000px;
+        margin-left:-272%;
+        overflow: hidden;
+        margin-top: -120%
+      
+        /* background: lightgray -67.777px 0px / 139.986% 100% no-repeat; */
+      }
+      
+      .slide-image-picture {
+        width: 90%;
+        height: 100%;
+        object-fit: cover;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+          rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+          rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      }
+      
+      .story-card-slide {
+        position: relative;
+        margin: 20px;
+        max-width: 20%;
+        max-height: 33vh;
+        margin-bottom: 10%;
+        margin-left: 4%;
+      }
+      
+      .slide-heading {
+        position: absolute;
+        top: 245%;
+        left: -240%;
+        width: 1000%;
+        z-index: 2;
+        color: #fff;
+        font-family: DM Sans;
+        font-size: 25px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        padding: 5px;
+      }
+      .slide-description {
+        position: absolute;
+        width: 750%;
+        top: 260%;
+        left: -240%;
+        z-index: 2;
+        color: #fff;
+        font-family: DM Sans;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        padding: 5px;
+      }
+      
+      .slide-image:before {
+        content: "";
+        position: absolute;
+        top: 0%;
+        left: 0;
+        width: 90.2%;
+        height: 38%;
+        background: linear-gradient(180deg, #000 58.26%, rgba(0, 0, 0, 0) 100%);
+        z-index: 1;
+      }
+      
+      .slide-image:after {
+        content: "";
+        position: absolute;
+        bottom: 0%;
+        left: 0.1%;
+        width: 90.2%;
+        height: 38%;
+        background: linear-gradient(0deg, #000 58.26%, rgba(0, 0, 0, 0) 100%);
+        z-index: 1;
+      }
+      .close-symbol-image {
+        position: absolute;
+        top: 20%;
+        left: -220%;
+        z-index: 9999;
+      }
+      .close-symbol-image{
+        width: 40%;
+      }
+      
+      .share-symbol-image {
+        position: absolute;
+        top: 18%;
+        left: 480%;
+        z-index: 9999;
+      }
+      .share-symbol-image{
+        width: 60%;
+      }
+      
+      .unlike-symbol-image {
+        position: absolute;
+        top: 285%;
+        left: 290%;
+        z-index: 9999;
+      }
+      .unbookmark-symbol-image {
+        position: absolute;
+        top: 285%;
+        left: -80%;
+        z-index: 9999;
+      }
+      
+      .story-card-likecount {
+        position: absolute;
+        top: 285%;
+        left: 360%;
+        z-index: 9999;
+        color: #ffffff;
+        color: #fff;
+        font-family: DM Sans;
+        font-size: 10px;
+        font-style: normal;
+        font-weight:500;
+        line-height: normal;
+      }
+      
+      .slide-progress-bar {
+        position: absolute;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        top: 6%;
+        left: -220%;
+        width: 390px;
+        height: 10px;
+        z-index: 9999;
+      }
+      
+      .slide-progress-bar-item {
+        flex: 1;
+        height: 5px;
+        background: rgba(217, 217, 217, 0.5);
+        margin-right: 4px;
+      }
+      
+      .slide-progress-bar-item.active {
+        background: #fff;
+      }
+      .user-stories-component{
+        display: none;
+      }
+    
+}

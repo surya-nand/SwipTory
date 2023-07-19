@@ -10,13 +10,11 @@ import closeSymbol from "./../../Assets/close.png";
 import closeSymbol2 from "./../../Assets/closesymbol.jpg";
 import shareSymbol from "./../../Assets/share.png";
 import editSymbol from "./../../Assets/edit.png";
-import leftSymbol from"./../../Assets/left-arrow.png";
-import rightSymbol from "./../../Assets/right-arrow.png";
 import { useNavigate, useLocation } from "react-router";
 
 const Base_URL = "http://localhost:5000";
 
-function Filter() {
+function MobUserStory() {
   const location = useLocation();
   const navigate = useNavigate();
   const loggedInUser = location.state && location.state.loggedInUser;
@@ -119,20 +117,6 @@ function Filter() {
     setCurrentSlideIndex((prevIndex) =>
       Math.min(prevIndex + 1, slides.length - 1)
     );
-  };
-  //for inner slides
-  const handlePrevSlide = () => {
-    if(currentSlide === 0){
-      return;
-    }
-    setCurrentSlide((prevSlide) => prevSlide - 1);
-  };
-  
-  const handleNxtSlide = () => {
-    if(currentSlide === openedSlides.length-1){
-      return;
-    }
-    setCurrentSlide((prevSlide) => prevSlide + 1);
   };
 
   const handleRemoveSlide = (index) => {
@@ -337,23 +321,7 @@ function Filter() {
     console.log(loggedInUser);
   };
 
-  const [isLinkCopied, setIsLinkCopied] = useState(false);
-  const getStoryLink = (openedStory) => {
-    
-    return `${Base_URL}/api/stories/${openedStory._id}`;
-  };
-
-  const handleShareStoryCard = (openedStory) => {
-    
-    const link = getStoryLink(openedStory); 
-    navigator.clipboard.writeText(link);
-  
-    setIsLinkCopied(true);
-  
-    setTimeout(() => {
-      setIsLinkCopied(false);
-    }, 6000);
-  };
+  const handleShareStoryCard = () => {};
 
   const handleLikeStoryCard = async (Story) => {
     if (loggedInUser) {
@@ -443,26 +411,28 @@ function Filter() {
 
   return (
     <>
-<div className="categories-component">
-  <div
-    className={`all-categories ${selectAll ? "selected-category" : ""}`}
-    onClick={() => handleCategorySelect("All")}
-  >
-    All
-  </div>
-  {uniqueCategories.map((category, index) => (
-    <div
-      key={category}
-      onClick={() => handleCategorySelect(category)}
-      className={`${selectedCategories.includes(category) ? "selected-category" : ""}category-${index}`}
-    >
-      {category}
-    </div>
-  ))}
-</div>
+      <div className="categories-component">
+        <div
+          className={`all-categories ${selectAll ? "selected-category" : ""}`}
+          onClick={() => handleCategorySelect("All")}
+        >
+          All
+        </div>
+        {uniqueCategories.map((category) => (
+          <div
+            key={category}
+            onClick={() => handleCategorySelect(category)}
+            className={
+              selectedCategories.includes(category) ? "selected-category" : ""
+            }
+          >
+            {category}
+          </div>
+        ))}
+      </div>
+      <div className="user-story-component">
       {loggedInUser && (
         <div>
-          <div className="user-stories-component">
             <div className="user-stories-title">Your Stories</div>
             <div className="user-stories-block">
               {loggedInUser.stories.length > 0 ? (
@@ -518,167 +488,104 @@ function Filter() {
               )}
             </div>
           </div>
-        </div>
       )}
-      
-      <div className="stories-component">
-        {uniqueCategories.map((category) => {
-          const Stories = filteredStories.filter(
-            (story) => story.storyCategory === category
-          );
-          const categoryStories = expandedCategories.includes(category)
-            ? Stories
-            : Stories.slice(0, 4);
-          return (
-            categoryStories.length > 0 && (
-              <>
-                <div className="story-block-title">
-                  Top stories about {category}
-                </div>
-                <div className="story-block" key={category}>
-                  {categoryStories.map((story) => (
-                    <div
-                      className="story-card"
-                      onClick={() => handleStoryCard(story)}
-                      key={story._id}
-                    >
-                      <div className="story-heading">{story.storyHeading}</div>
-                      <div className="story-description">
-                        {story.storyDescription}
-                      </div>
-                      <div className="story-image">
-                        <img
-                          className="story-image-picture"
-                          src={story.storyImageUrl}
-                          alt="story"
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div
-                  className="see-more-option"
-                  onClick={() => handleSeeMoreButton(category)}
-                >
-                  {expandedCategories.includes(category)
-                    ? "See Less"
-                    : "See More"}
-                </div>
-              </>
-            )
-          );
-        })}
       </div>
+      
       {isStoryCardOpen && (
-  <div className="story-card-overlay">
-    <div className="story-card-container">
-      <div className="story-card-content">
-        {openedSlides.length > 0 && (
-          <div className="story-card-slide">
-            <div className="slide-content">
-              <div className="slide-image">
-                <img
-                  src={openedSlides[currentSlide].slide_imageurl}
-                  className="slide-image-picture"
-                  alt="slide"
-                />
-              </div>
-              <div className="story-card-close" onClick={handleCloseStoryCard}>
-                <img
-                  src={closeSymbol}
-                  alt="close-symbol"
-                  className="close-symbol-image"
-                />
-              </div>
-              <div
-                className="story-card-share"
-                onClick={() => handleShareStoryCard(openedStory)}
-              >
-                <img
-                  src={shareSymbol}
-                  alt="share-symbol"
-                  className="share-symbol-image"
-                />
-              </div>
-              {isLinkCopied && <div className="link-copied">Link copied to clipboard</div>}
-              <div className="slide-heading">
-                {openedSlides[currentSlide].slide_heading}
-              </div>
-              <div className="slide-description">
-                {openedSlides[currentSlide].slide_description}
-              </div>
-              <div
-                className="story-card-like"
-                onClick={() => handleLikeStoryCard(openedStory)}
-              >
-                <img
-                  src={
-                    loggedInUser &&
-                    loggedInUser.likes.some(
-                      (likedStory) => likedStory === openedStory._id
-                    )
-                      ? likedSymbol
-                      : unLikedSymbol
-                  }
-                  alt="unlike-symbol"
-                  className="unlike-symbol-image"
-                />
-              </div>
-              <div className="story-card-likecount">
-                <h1>{openedStory.likesCount}</h1>
-              </div>
-              <div
-                className="story-card-bookmark"
-                onClick={() => handleBookmarkStoryCard(openedStory)}
-              >
-                <img
-                  src={
-                    loggedInUser &&
-                    loggedInUser.bookmarks.some(
-                      (bookmarkedStory) =>
-                        bookmarkedStory._id === openedStory._id
-                    )
-                      ? bookmarkedSymbol
-                      : unBookmarkedSymbol
-                  }
-                  alt="unbookmark-symbol"
-                  className="unbookmark-symbol-image"
-                />
-              </div>
-            </div>
-            <div className="slide-progress-bar">
-              {openedSlides.map((slide, index) => (
-                <div
-                  key={index}
-                  className={`slide-progress-bar-item ${
-                    index === currentSlide ? "active" : ""
-                  }`}
-                ></div>
-              ))}
-            </div>
-            <div className="slide-navigation">
-              <div
-                className="prev-slide-arrow"
-                onClick={handlePrevSlide}
-                disabled={currentSlide === 0}
-              >
-                <img src={leftSymbol} alt="left-arrow-symbol" className="left-arrow-symbol"></img>
-              </div>
-              <div
-                className="next-slide-arrow"
-                onClick={handleNxtSlide}
-                disabled={currentSlide === openedSlides.length - 1}
-              >
-                <img src={rightSymbol} alt="right-arrow-symbol" className="right-arrow-symbol"></img>
-              </div>
+        <div className="story-card-overlay">
+          <div className="story-card-container">
+            <div className="story-card-content">
+              {openedSlides.length > 0 && (
+                <div className="story-card-slide">
+                  <div className="slide-content">
+                    <div className="slide-image">
+                      <img
+                        src={openedSlides[currentSlide].slide_imageurl}
+                        className="slide-image-picture"
+                        alt="slide"
+                      />
+                    </div>
+                    <div
+                      className="story-card-close"
+                      onClick={handleCloseStoryCard}
+                    >
+                      <img
+                        src={closeSymbol}
+                        alt="close-symbol"
+                        className="close-symbol-image"
+                      ></img>
+                    </div>
+                    <div
+                      className="story-card-share"
+                      onClick={() => handleShareStoryCard(openedStory)}
+                    >
+                      <img
+                        src={shareSymbol}
+                        alt="share-symbol"
+                        className="share-symbol-image"
+                      ></img>
+                    </div>
+                    <div className="slide-heading">
+                      {openedSlides[currentSlide].slide_heading}
+                    </div>
+                    <div className="slide-description">
+                      {openedSlides[currentSlide].slide_description}
+                    </div>
+                    <div
+                      className="story-card-like"
+                      onClick={() => handleLikeStoryCard(openedStory)}
+                    >
+                      <img
+                        src={
+                          loggedInUser &&
+                          loggedInUser.likes.some(
+                            (likedStory) => likedStory === openedStory._id
+                          )
+                            ? likedSymbol
+                            : unLikedSymbol
+                        }
+                        alt="unlike-symbol"
+                        className="unlike-symbol-image"
+                      ></img>
+                    </div>
+                    <div className="story-card-likecount">
+                      <h1>{openedStory.likesCount}</h1>
+                    </div>
+                    <div
+                      className="story-card-bookmark"
+                      onClick={() => handleBookmarkStoryCard(openedStory)}
+                    >
+                      <img
+                        src={
+                          loggedInUser &&
+                          loggedInUser.bookmarks.some(
+                            (bookmarkedStory) =>
+                              bookmarkedStory._id === openedStory._id
+                          )
+                            ? bookmarkedSymbol
+                            : unBookmarkedSymbol
+                        }
+                        alt="unbookmark-symbol"
+                        className="unbookmark-symbol-image"
+                      ></img>
+                    </div>
+                  </div>
+                  <div className="slide-progress-bar">
+                    {openedSlides.map((slide, index) => (
+                      <div
+                        key={index}
+                        className={`slide-progress-bar-item ${
+                          index === currentSlide ? "active" : ""
+                        }`}
+                      ></div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-        )}
-      </div>
-    </div>
-  </div>
-)}
-
+        </div>
+      )}
       {isEditStoryFormOpen && (
         <>
           <div className="overlay">
@@ -844,4 +751,4 @@ function Filter() {
     </>
   );
 }
-export default Filter;
+export default MobUserStory;

@@ -24,3 +24,19 @@
     margin-bottom: 5%;
     width: 100%;
 }
+@media (max-width: 430px) and (min-width: 320px) {
+    .bookmarks-title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 6%;
+        margin-bottom: 3%;
+        color: #000;
+        text-align: center;
+        font-family: DM Sans;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+}

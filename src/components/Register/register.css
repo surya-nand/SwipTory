@@ -98,7 +98,7 @@
   line-height: normal;
   margin-top: 3%;
 }
-@media (min-width: 320px) and (max-width: 425px) {
+@media (min-width: 320px) and (max-width: 430px) {
   .register-modal {
     position: fixed;
     width: 50vw;
@@ -163,9 +163,10 @@
   .user-name,
   .user-password {
     margin-left: -10%;
-    width: 25vw;
+    width: 30vw;
     height: 2vh;
     margin-bottom: 15%;
+    font-size: 3.5vw;
   }
   
   .registration-details-button {

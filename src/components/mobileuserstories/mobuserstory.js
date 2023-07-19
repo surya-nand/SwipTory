@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./../Filters/filter.css";
+import "./../mobileuserstories/mobuserstory.modules.css"
 
 import likedSymbol from "./../../Assets/liked.png";
 import bookmarkedSymbol from "./../../Assets/bookmarked.png";
@@ -12,7 +12,7 @@ import shareSymbol from "./../../Assets/share.png";
 import editSymbol from "./../../Assets/edit.png";
 import { useNavigate, useLocation } from "react-router";
 
-const Base_URL = "http://localhost:5000";
+const Base_URL = "https://server-swipe.onrender.com";
 
 function MobUserStory() {
   const location = useLocation();
@@ -588,8 +588,8 @@ function MobUserStory() {
       )}
       {isEditStoryFormOpen && (
         <>
-          <div className="overlay">
-            <div className="addstory-modal">
+          <div className="mob-overlay">
+            <div className="mob-addstory-modal">
               <form method="POST" onSubmit={handleSubmit}>
                 <div
                   className="close-addstoryform"
@@ -598,19 +598,19 @@ function MobUserStory() {
                   <img
                     src={closeSymbol2}
                     alt="close-symbol-pic"
-                    className="close-symbol-pic"
+                    className="mob-close-symbol-pic"
                   ></img>
                 </div>
-                <div className="slides-number-message">
+                <div className="mob-slides-number-message">
                   <p>Add upto 6 slides</p>
                 </div>
-                <div className="story-slides-component">
+                <div className="mob-story-slides-component">
                   {slides.map((_, index) => (
                     <>
                       <button
                         key={index}
                         onClick={(e) => handleSlideButtonClick(e, index)}
-                        className={`each-slide ${
+                        className={`mob-each-slide ${
                           index === currentSlideIndex ? "selected-slide" : ""
                         }`}
                       >
@@ -621,7 +621,7 @@ function MobUserStory() {
                           <img
                             src={closeSymbol2}
                             alt="close-symbol"
-                            className="slide-close-symbol"
+                            className="mob-slide-close-symbol"
                             onClick={() => handleRemoveSlide(index)}
                           />
                         </div>
@@ -632,15 +632,15 @@ function MobUserStory() {
                     <button
                       type="button"
                       onClick={handleAddSlide}
-                      className="add-new-slide"
+                      className="mob-add-new-slide"
                     >
                       Add +
                     </button>
                   )}
                 </div>
                 <div>
-                  <div className="slide-inputs">
-                    <div className="slide-heading-input">
+                  <div className="mob-slide-inputs">
+                    <div className="mob-slide-heading-input">
                       <p>Heading :</p>
                       <input
                         type="text"
@@ -656,7 +656,7 @@ function MobUserStory() {
                         }
                       />
                     </div>
-                    <div className="slide-description-input">
+                    <div className="mob-slide-description-input">
                       <p>Description :</p>
                       <input
                         type="text"
@@ -672,7 +672,7 @@ function MobUserStory() {
                         }
                       />
                     </div>
-                    <div className="slide-image-input">
+                    <div className="mob-slide-image-input">
                       <p>Image :</p>
                       <input
                         type="text"
@@ -688,10 +688,10 @@ function MobUserStory() {
                         }
                       />
                     </div>
-                    <div className="slide-category-input">
+                    <div className="mob-slide-category-input">
                       <p>Category: </p>
                       <select
-                        className="drop-down-menu"
+                        className="mob-drop-down-menu"
                         required
                         value={slides[currentSlideIndex].slide_category}
                         onChange={(e) =>
@@ -714,12 +714,12 @@ function MobUserStory() {
                     </div>
                   </div>
                 </div>
-                <div className="post-story-buttons">
-                  <div className="previous-next-buttons">
+                <div className="mob-post-story-buttons">
+                  <div className="mob-previous-next-buttons">
                     {currentSlideIndex > 0 && (
                       <button
                         type="button"
-                        className="previous-slide-button"
+                        className="mob-previous-slide-button"
                         onClick={handlePreviousSlide}
                       >
                         Previous
@@ -728,7 +728,7 @@ function MobUserStory() {
                     {currentSlideIndex < slides.length - 1 && (
                       <button
                         type="button"
-                        className="next-slide-button"
+                        className="mob-next-slide-button"
                         onClick={handleNextSlide}
                       >
                         Next
@@ -737,7 +737,7 @@ function MobUserStory() {
                   </div>
                   <div>
                     {slides.length >= 3 && (
-                      <button className="post-story-button" type="submit">
+                      <button className="mob-post-story-button" type="submit">
                         Post
                       </button>
                     )}

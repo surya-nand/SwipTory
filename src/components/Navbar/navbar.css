@@ -519,7 +519,7 @@
   }
   .slide-close-symbol{
     display: block;
-    width: 15%;
+    width: 25%;
     height: 50%;
     margin-left: 330%;
     margin-top: -70%;
@@ -537,6 +537,7 @@
     width: 20%;
     height: 8%;
   }
+ 
    
   .mobile-add-story-heading{
     display: block;
@@ -548,7 +549,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    margin-top: -25%;
+    margin-top: -20%;
     margin-left: 5%;
 
   }

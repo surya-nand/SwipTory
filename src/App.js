@@ -1,4 +1,3 @@
-// import StoryForm from "./story";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Mainpage from "./components/Mainpage/mainpage";

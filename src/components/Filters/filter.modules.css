@@ -147,32 +147,11 @@
   background-image: url('https://tse4.mm.bing.net/th?id=OIP.gEM-Epws4zSM06eK32OwtQHaEj&pid=Api&P=0&h=180');
 }
 
-/* .category-0 {
-  background-image: url('https://tse4.mm.bing.net/th?id=OIP.gEM-Epws4zSM06eK32OwtQHaEj&pid=Api&P=0&h=180');
-}
 
-.category-1 {
-  background-image: url('https://tse2.mm.bing.net/th?id=OIP.rOOQiTeQqJrDloW7kE8FOAHaEm&pid=Api&P=0&h=180');
-}
-
-.category-2 {
-  background-image: url('https://tse4.mm.bing.net/th?id=OIP.gEM-Epws4zSM06eK32OwtQHaEj&pid=Api&P=0&h=180');
-}
-
-.category-3 {
-  background-image: url('https://tse4.mm.bing.net/th?id=OIP.gEM-Epws4zSM06eK32OwtQHaEj&pid=Api&P=0&h=180');
-}
-
-.category-4 {
-  background-image: url('https://tse4.mm.bing.net/th?id=OIP.gEM-Epws4zSM06eK32OwtQHaEj&pid=Api&P=0&h=180');
-} */
 
 .user-stories-component {
   margin-top: 6%;
   width: 100%;
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
 }
 
 .user-stories-title {
@@ -580,7 +559,6 @@
   }
   
   .story-image:before {
-    display: none;
     content: "";
     position: absolute;
     top: 0;
@@ -875,7 +853,7 @@
     justify-content: space-between;
     align-items: center;
     top: 6%;
-    left: -220%;
+    left: -250%;
     width: 390px;
     height: 10px;
     z-index: 9999;

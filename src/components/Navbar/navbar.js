@@ -9,7 +9,7 @@ import bookmark from "./../../Assets/bookmark.jpg";
 import { useNavigate, useLocation } from "react-router";
 import { useState } from "react";
 
-const Base_URL = "http://localhost:5000";
+const Base_URL = "https://server-swipe.onrender.com";
 
 const Navbar = () => {
   const navigate = useNavigate();

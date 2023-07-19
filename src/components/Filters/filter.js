@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./../Filters/filter.css";
+import "./../Filters/filter.modules.css";
 
 import likedSymbol from "./../../Assets/liked.png";
 import bookmarkedSymbol from "./../../Assets/bookmarked.png";
@@ -14,7 +14,7 @@ import leftSymbol from"./../../Assets/left-arrow.png";
 import rightSymbol from "./../../Assets/right-arrow.png";
 import { useNavigate, useLocation } from "react-router";
 
-const Base_URL = "http://localhost:5000";
+const Base_URL = "https://server-swipe.onrender.com";
 
 function Filter() {
   const location = useLocation();

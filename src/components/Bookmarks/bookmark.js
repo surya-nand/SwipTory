@@ -9,7 +9,7 @@ import closeSymbol from "./../../Assets/close.png";
 import shareSymbol from "./../../Assets/share.png";
 import axios from "axios";
 import "./../Bookmarks/bookmark.css";
-const Base_URL = "http://localhost:5000";
+const Base_URL = "https://server-swipe.onrender.com";
 
 function Bookmark() {
   const location = useLocation();

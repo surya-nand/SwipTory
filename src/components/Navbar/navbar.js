@@ -85,7 +85,7 @@ const Navbar = () => {
 
           navigate("/bookmarkpage", {
             state: {
-              loggedInUser: currentUser,
+              loggedInUser: loggedInUser,
             },
           });
           console.log(currentUser);

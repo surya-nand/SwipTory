@@ -136,17 +136,13 @@
 }
 
 .categories-component div:hover {
-  border: 3px solid #00acd2;
-  color: #000000;
-}
-.selected-category {
-  color: #000000;
-  border: 3px solid #00acd2;
-}
-.select-all{
-  background-image: url('https://tse4.mm.bing.net/th?id=OIP.gEM-Epws4zSM06eK32OwtQHaEj&pid=Api&P=0&h=180');
+  color: #68dfa6;
 }
 
+.selected-category {
+  color: #68dfa6;
+  border: 3px solid #00acd2;
+}
 
 
 .user-stories-component {

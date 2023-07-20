@@ -453,7 +453,7 @@ function Filter() {
     <div
       key={category}
       onClick={() => handleCategorySelect(category)}
-      className={`${selectedCategories.includes(category) ? "selected-category" : ""}category-${index}`}
+      className={`${selectedCategories.includes(category) ? "selected-category" : ""}`}
     >
       {category}
     </div>

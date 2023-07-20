@@ -4,6 +4,7 @@ import Bookmark from '../Bookmarks/bookmark'
 
 function Bookmarkpage() {
   return (
+    //To load Navbar and bookmarks
     <div>
         <Navbar/>
         <Bookmark/>

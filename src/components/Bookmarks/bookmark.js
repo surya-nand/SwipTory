@@ -8,21 +8,20 @@ import unBookmarkedSymbol from "./../../Assets/unbookmarked.png";
 import closeSymbol from "./../../Assets/close.png";
 import shareSymbol from "./../../Assets/share.png";
 import axios from "axios";
-import "./../Bookmarks/bookmark.css";
+import "./../Bookmarks/bookmark.modules.css";
 const Base_URL = "https://server-swipe.onrender.com";
 
 function Bookmark() {
   const location = useLocation();
   const navigate = useNavigate();
   const loggedInUser = location.state && location.state.loggedInUser;
-
   const [isStoryCardOpen, setIsStoryCardOpen] = useState(false);
   const [openedSlides, setOpenedSlides] = useState([]);
   const [openedStory, setOpenedStory] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-
+ // handling story clicks
   const handleStoryCard = (story) => {
     setIsStoryCardOpen(true);
     setOpenedStory(story);

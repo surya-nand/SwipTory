@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import closeSymbol from "./../../Assets/closesymbol.jpg";
-import "./../Register/register.css";
+import "./../Register/register.modules.css";
 import axios from "axios";
 const Base_URL = "https://server-swipe.onrender.com";
 

@@ -120,6 +120,7 @@ function Filter() {
       Math.min(prevIndex + 1, slides.length - 1)
     );
   };
+
   //for inner slides
   const handlePrevSlide = () => {
     if(currentSlide === 0){
@@ -157,7 +158,6 @@ function Filter() {
 
     // Validate minimum 3 slides
     if (slides.length < 3) {
-      // Display an error message or handle it as per your app's design
       alert("Please fill at least 3 slides");
       return;
     }
@@ -218,7 +218,6 @@ function Filter() {
       });
     } catch (error) {
       console.error(error);
-      // Handle error state or display an error message to the user
     }
   };
 

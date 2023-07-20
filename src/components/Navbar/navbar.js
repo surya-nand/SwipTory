@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import "./../Navbar/navbar.css";
+import "./../Navbar/navbar.modules.css";
 import closeSymbol from "./../../Assets/closesymbol.jpg";
 import profilePic from "./../../Assets/picture.jpg";
 import hamBurger from "./../../Assets/hamburger.png";

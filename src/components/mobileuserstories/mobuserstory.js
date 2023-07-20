@@ -126,7 +126,6 @@ function MobUserStory() {
 
       if (index === currentSlideIndex) {
         // If the removed slide was the last slide, select the previous slide
-        // Otherwise, keep the currentSlideIndex unchanged
         setCurrentSlideIndex(
           index === updatedSlides.length ? index - 1 : currentSlideIndex
         );
@@ -141,7 +140,6 @@ function MobUserStory() {
 
     // Validate minimum 3 slides
     if (slides.length < 3) {
-      // Display an error message or handle it as per your app's design
       alert("Please fill at least 3 slides");
       return;
     }
@@ -202,7 +200,6 @@ function MobUserStory() {
       });
     } catch (error) {
       console.error(error);
-      // Handle error state or display an error message to the user
     }
   };
 
@@ -498,10 +495,10 @@ function MobUserStory() {
               {openedSlides.length > 0 && (
                 <div className="story-card-slide">
                   <div className="slide-content">
-                    <div className="slide-image">
+                    <div className="mob-slide-image">
                       <img
                         src={openedSlides[currentSlide].slide_imageurl}
-                        className="slide-image-picture"
+                        className="mob-slide-image-picture"
                         alt="slide"
                       />
                     </div>
@@ -672,7 +669,7 @@ function MobUserStory() {
                         }
                       />
                     </div>
-                    <div className="mob-slide-image-input">
+                    <div className="mob-mob-slide-image-input">
                       <p>Image :</p>
                       <input
                         type="text"

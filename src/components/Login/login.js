@@ -1,5 +1,5 @@
 import React from 'react'
-import './../Login/login.css'
+import './../Login/login.modules.css'
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';

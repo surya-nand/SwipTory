@@ -377,6 +377,7 @@
   top: 12%;
   left: 26%;
   z-index: 9999;
+  cursor: pointer;
 }
 
 .share-symbol-image {
@@ -384,16 +385,20 @@
   top: 12%;
   left: 355%;
   z-index: 9999;
+  cursor: pointer;
 }
+
 .next-slide-arrow,.prev-slide-arrow{
   border: blueviolet;
   border-radius: 0px;
   box-shadow: none;
+  cursor: pointer;
 }
 .next-slide-arrow{
   position: absolute;
   margin-top: -500%;
   margin-left: 500%;
+  cursor: pointer;
 }
 
 .prev-slide-arrow{
@@ -414,12 +419,14 @@
   top: 150%;
   left: 280%;
   z-index: 9999;
+  cursor: pointer;
 }
 .unbookmark-symbol-image {
   position: absolute;
   top: 150%;
   left: 80%;
   z-index: 9999;
+  cursor: pointer;
 }
 
 .story-card-likecount {

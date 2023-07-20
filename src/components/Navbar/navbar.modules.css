@@ -94,6 +94,7 @@
 }
 .menu-icon{
     margin-left: 1vw;
+    cursor: pointer;
 }
 
 
@@ -143,6 +144,7 @@
   line-height: normal;
   margin-right: 2%;
   margin-bottom: 2%;
+  cursor: pointer;
   
 }
 
@@ -177,6 +179,7 @@
   height: 10px;
   top: -5%;
   left: -250%;
+  cursor: pointer;
 }
 
 .story-slides-component{
@@ -272,6 +275,7 @@
   border: none;
   width: 8vw;
   height: 3vh;
+  cursor: pointer;
   
 }
 
@@ -371,7 +375,7 @@
     display: block;
     display: flex;
     justify-content: right;
-    margin-left: 63%;
+    margin-left: 60%;
     cursor: pointer;
   }
   .mobile-menu-block,.mobile-loggedin-user-details{
@@ -516,6 +520,7 @@
     line-height: normal;
     margin-right: 2%;
     margin-bottom: 28%;
+    cursor: pointer;
   }
   .slide-close-symbol{
     display: block;
@@ -679,6 +684,7 @@
     border: none;
     width: 14vw;
     height: 3vh;
+    cursor: pointer;
     
   }
   

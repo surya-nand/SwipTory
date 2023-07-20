@@ -58,10 +58,6 @@
   font-weight: 500;
   line-height: normal;
 }
-/* .username-input,.password-input{
-      margin-left: 10%;
-      width: 30vw;
-  } */
 
 .user-name,
 .user-password {
@@ -81,6 +77,7 @@
   border: none;
   width: 10vw;
   height: 3vh;
+  cursor: pointer;
 }
 
 .register-text {
@@ -102,6 +99,7 @@
   line-height: normal;
   margin-top: 3%;
 }
+
 @media (min-width: 320px) and (max-width: 430px) {
   .overlay {
     position: fixed;
@@ -173,11 +171,7 @@
     margin-left: -30%;
     margin-bottom: 5%;
   }
-  /* .username-input,.password-input{
-        margin-left: 10%;
-        width: 30vw;
-    } */
-  
+
   .user-name,
   .user-password {
     margin-left: -10%;
@@ -195,6 +189,7 @@
     border: none;
     width: 20vw;
     height: 3vh;
+    cursor: pointer;
   }
   
   .register-text {

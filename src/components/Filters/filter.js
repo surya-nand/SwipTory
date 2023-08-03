@@ -189,7 +189,7 @@ function Filter() {
       };
 
       const response = await axios.post(
-        "http://localhost:5000/api/stories",
+        `${Base_URL}/api/stories`,
         story
       );
 

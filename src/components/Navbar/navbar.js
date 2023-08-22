@@ -44,7 +44,7 @@ const Navbar = () => {
   ]);
 
   useEffect(() => {
-    // Check if the first 3 slides have all required fields filled
+    // Checking  if the first 3 slides have all required fields filled
     const firstThreeSlides = slides.slice(0, 3);
     const areSlidesValid = firstThreeSlides.every(slide =>
       slide.slide_heading && slide.slide_description && slide.slide_imageurl && slide.slide_category
@@ -53,6 +53,7 @@ const Navbar = () => {
     // Update the form's validity
     setIsFormValid(areSlidesValid);
   }, [slides]);
+
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const handleRegisterButton = () => {
     navigate("/register");
@@ -205,9 +206,9 @@ const Navbar = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate minimum 3 slides
+    // checking form validity
     if (!isFormValid) {
-      // Display an error message
+      // Display an alert
       setFormValidityAlertOpen(true);
       return;
     }
@@ -228,6 +229,9 @@ const Navbar = () => {
 
       if (loggedInUser) {
         loggedInUser.stories = [...loggedInUser.stories, story];
+        window.alert("Story successfully posted");
+        setIsAddStoryFormOpen(false);
+        setFormValidityAlertOpen(false);
       }
 
       const category = {
@@ -235,15 +239,15 @@ const Navbar = () => {
       };
 
       const response = await axios.post(
-        `${Base_URL}/api/stories`,
-        story
+        `${Base_URL}/api/stories`,story
       );
 
-      axios
+       await axios
         .put(`${Base_URL}/api/storyUsers/${loggedInUser._id}`, loggedInUser)
         .then((res) => {
           console.log("User details updated:", res.data);
         })
+        
         .catch((error) => {
           console.log("Failed to update user details:", error);
         });
@@ -286,7 +290,7 @@ const Navbar = () => {
         },
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
@@ -373,7 +377,7 @@ const Navbar = () => {
         <>
           <div className="overlay">
             <div className="addstory-modal">
-              <form method="POST" onSubmit={handleSubmit}>
+              <form method="POST" onSubmit={handleSubmit} id='add-story-form'>
                 <div
                   className="close-addstoryform"
                   onClick={handleCloseAddStoryForm}

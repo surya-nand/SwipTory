@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./../Filters/filter.modules.css";
-
 import likedSymbol from "./../../Assets/liked.png";
 import bookmarkedSymbol from "./../../Assets/bookmarked.png";
 import unLikedSymbol from "./../../Assets/unliked.png";
@@ -10,7 +9,7 @@ import closeSymbol from "./../../Assets/close.png";
 import closeSymbol2 from "./../../Assets/closesymbol.jpg";
 import shareSymbol from "./../../Assets/share.png";
 import editSymbol from "./../../Assets/edit.png";
-import leftSymbol from"./../../Assets/left-arrow.png";
+import leftSymbol from "./../../Assets/left-arrow.png";
 import rightSymbol from "./../../Assets/right-arrow.png";
 import { useNavigate, useLocation } from "react-router";
 
@@ -20,7 +19,6 @@ function Filter() {
   const location = useLocation();
   const navigate = useNavigate();
   const loggedInUser = location.state && location.state.loggedInUser;
-  
 
   const [categories, setCategories] = useState([]);
   const [uniqueCategories, setUniqueCategories] = useState([]);
@@ -38,6 +36,8 @@ function Filter() {
   const [isEditStoryFormOpen, setIsEditStoryFormOpen] = useState(false);
   const [editingStory, setEditingStory] = useState([]);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [formValidityAlertOpen, setFormValidityAlertOpen] = useState(false);
   const [slides, setSlides] = useState([
     {
       slide_heading: "",
@@ -59,6 +59,22 @@ function Filter() {
     },
   ]);
 
+  useEffect(() => {
+    // Checking  if the first 3 slides have all required fields filled
+    const firstThreeSlides = slides.slice(0, 3);
+    const areSlidesValid = firstThreeSlides.every(
+      (slide) =>
+        slide.slide_heading &&
+        slide.slide_description &&
+        slide.slide_imageurl &&
+        slide.slide_category
+    );
+
+    // Update the form's validity
+    setIsFormValid(areSlidesValid);
+  }, [slides]);
+
+  // close edit story form
   const handleCloseAddStoryForm = () => {
     setSlides([
       {
@@ -83,8 +99,9 @@ function Filter() {
     setIsEditStoryFormOpen(false);
   };
 
+  //Limit add story form to six slides
   const handleAddSlide = () => {
-    if (slides.length >= 6) return; // Limit the number of slides to 6
+    if (slides.length >= 6) return;
 
     setSlides([
       ...slides,
@@ -102,6 +119,7 @@ function Filter() {
     setSlides(updatedSlides);
   };
 
+  //slide navigating functions
   const handleSlideClick = (index) => {
     setCurrentSlideIndex(index);
   };
@@ -123,14 +141,14 @@ function Filter() {
 
   //for inner slides
   const handlePrevSlide = () => {
-    if(currentSlide === 0){
+    if (currentSlide === 0) {
       return;
     }
     setCurrentSlide((prevSlide) => prevSlide - 1);
   };
-  
+
   const handleNxtSlide = () => {
-    if(currentSlide === openedSlides.length-1){
+    if (currentSlide === openedSlides.length - 1) {
       return;
     }
     setCurrentSlide((prevSlide) => prevSlide + 1);
@@ -156,9 +174,10 @@ function Filter() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate minimum 3 slides
-    if (slides.length < 3) {
-      alert("Please fill at least 3 slides");
+    // Checking form validity
+    if (!isFormValid) {
+      // Display an alert
+      setFormValidityAlertOpen(true);
       return;
     }
     try {
@@ -180,7 +199,6 @@ function Filter() {
         const editingStoryIndex = loggedInUser.stories.findIndex(
           (userStory) => userStory._id === editingStory._id
         );
-
         loggedInUser.stories[editingStoryIndex] = story;
       }
 
@@ -188,12 +206,16 @@ function Filter() {
         category: slides[0].slide_category,
       };
 
-      const response = await axios.post(
-        `${Base_URL}/api/stories`,
-        story
-      );
+      // await axios
+      // .put(`${Base_URL}/api/stories/${story._id}`, story)
+      // .then((res)=>{
+      //   console.log("Story details updated:", res.data)
+      // })
+      // .catch((error)=>{
+      //   console.log("Story details failed to update",error)
+      // })
 
-      axios
+      await axios
         .put(`${Base_URL}/api/storyUsers/${loggedInUser._id}`, loggedInUser)
         .then((res) => {
           console.log("User details updated:", res.data);
@@ -201,7 +223,7 @@ function Filter() {
         .catch((error) => {
           console.log("Failed to update user details:", error);
         });
-       axios
+      await axios
         .post(`${Base_URL}/api/categories`, category)
         .then((res) => {
           console.log("Category details updated:", res.data);
@@ -209,7 +231,7 @@ function Filter() {
         .catch((error) => {
           console.log("Failed to update category details:", error);
         });
-      console.log(response.data);
+
       setIsEditStoryFormOpen(false);
       navigate("/", {
         state: {
@@ -294,6 +316,7 @@ function Filter() {
   };
 
   const handleStoryCard = (story) => {
+    console.log(story)
     setIsStoryCardOpen(true);
     setOpenedStory(story);
     setOpenedSlides(story.slides);
@@ -338,17 +361,15 @@ function Filter() {
 
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const getStoryLink = (openedStory) => {
-    
     return `${Base_URL}/api/stories/${openedStory._id}`;
   };
 
   const handleShareStoryCard = (openedStory) => {
-    
-    const link = getStoryLink(openedStory); 
+    const link = getStoryLink(openedStory);
     navigator.clipboard.writeText(link);
-  
+
     setIsLinkCopied(true);
-  
+
     setTimeout(() => {
       setIsLinkCopied(false);
     }, 6000);
@@ -442,23 +463,26 @@ function Filter() {
 
   return (
     <>
-<div className="categories-component">
-  <div
-    className={`all-categories ${selectAll ? "selected-category" : ""}`}
-    onClick={() => handleCategorySelect("All")}
-  >
-    All
-  </div>
-  {uniqueCategories.map((category, index) => (
-    <div
-      key={category}
-      onClick={() => handleCategorySelect(category)}
-      className={`${selectedCategories.includes(category) ? "selected-category" : ""}`}
-    >
-      {category}
-    </div>
-  ))}
-</div>
+      <div className="categories-component">
+        <div
+          className={`all-categories ${selectAll ? "selected-category" : ""}`}
+          onClick={() => handleCategorySelect("All")}
+        >
+          All
+        </div>
+        {uniqueCategories.map((category, index) => (
+          <div
+            key={category}
+            onClick={() => handleCategorySelect(category)}
+            className={`${
+              selectedCategories.includes(category) ? "selected-category" : ""
+            }`}
+          >
+
+            {category}
+          </div>
+        ))}
+      </div>
       {loggedInUser && (
         <div>
           <div className="user-stories-component">
@@ -477,6 +501,7 @@ function Filter() {
                         <div className="story-heading">
                           {story.storyHeading}
                         </div>
+      
                         <div className="story-description">
                           {story.storyDescription}
                         </div>
@@ -519,7 +544,7 @@ function Filter() {
           </div>
         </div>
       )}
-      
+
       <div className="stories-component">
         {uniqueCategories.map((category) => {
           const Stories = filteredStories.filter(
@@ -569,120 +594,135 @@ function Filter() {
         })}
       </div>
       {isStoryCardOpen && (
-  <div className="story-card-overlay">
-    <div className="story-card-container">
-      <div className="story-card-content">
-        {openedSlides.length > 0 && (
-          <div className="story-card-slide">
-            <div className="slide-content">
-              <div className="slide-image">
-                <img
-                  src={openedSlides[currentSlide].slide_imageurl}
-                  className="slide-image-picture"
-                  alt="slide"
-                />
-              </div>
-              <div className="story-card-close" onClick={handleCloseStoryCard}>
-                <img
-                  src={closeSymbol}
-                  alt="close-symbol"
-                  className="close-symbol-image"
-                />
-              </div>
-              <div
-                className="story-card-share"
-                onClick={() => handleShareStoryCard(openedStory)}
-              >
-                <img
-                  src={shareSymbol}
-                  alt="share-symbol"
-                  className="share-symbol-image"
-                />
-              </div>
-              {isLinkCopied && <div className="link-copied">Link copied to clipboard</div>}
-              <div className="slide-heading">
-                {openedSlides[currentSlide].slide_heading}
-              </div>
-              <div className="slide-description">
-                {openedSlides[currentSlide].slide_description}
-              </div>
-              <div
-                className="story-card-like"
-                onClick={() => handleLikeStoryCard(openedStory)}
-              >
-                <img
-                  src={
-                    loggedInUser &&
-                    loggedInUser.likes.some(
-                      (likedStory) => likedStory === openedStory._id
-                    )
-                      ? likedSymbol
-                      : unLikedSymbol
-                  }
-                  alt="unlike-symbol"
-                  className="unlike-symbol-image"
-                />
-              </div>
-              <div className="story-card-likecount">
-                <h1>{openedStory.likesCount}</h1>
-              </div>
-              <div
-                className="story-card-bookmark"
-                onClick={() => handleBookmarkStoryCard(openedStory)}
-              >
-                <img
-                  src={
-                    loggedInUser &&
-                    loggedInUser.bookmarks.some(
-                      (bookmarkedStory) =>
-                        bookmarkedStory._id === openedStory._id
-                    )
-                      ? bookmarkedSymbol
-                      : unBookmarkedSymbol
-                  }
-                  alt="unbookmark-symbol"
-                  className="unbookmark-symbol-image"
-                />
-              </div>
-            </div>
-            <div className="slide-progress-bar">
-              {openedSlides.map((slide, index) => (
-                <div
-                  key={index}
-                  className={`slide-progress-bar-item ${
-                    index === currentSlide ? "active" : ""
-                  }`}
-                ></div>
-              ))}
-            </div>
-            <div className="slide-navigation">
-              <div
-                className="prev-slide-arrow"
-                onClick={handlePrevSlide}
-                disabled={currentSlide === 0}
-              >
-                <img src={leftSymbol} alt="left-arrow-symbol" className="left-arrow-symbol"></img>
-              </div>
-              <div
-                className="next-slide-arrow"
-                onClick={handleNxtSlide}
-                disabled={currentSlide === openedSlides.length - 1}
-              >
-                <img src={rightSymbol} alt="right-arrow-symbol" className="right-arrow-symbol"></img>
-              </div>
+        <div className="story-card-overlay">
+          <div className="story-card-container">
+            <div className="story-card-content">
+              {openedSlides.length > 0 && (
+                <div className="story-card-slide">
+                  <div className="slide-content">
+                    <div className="slide-image">
+                      <img
+                        src={openedSlides[currentSlide].slide_imageurl}
+                        className="slide-image-picture"
+                        alt="slide"
+                      />
+                    </div>
+                    <div
+                      className="story-card-close"
+                      onClick={handleCloseStoryCard}
+                    >
+                      <img
+                        src={closeSymbol}
+                        alt="close-symbol"
+                        className="close-symbol-image"
+                      />
+                    </div>
+                    <div
+                      className="story-card-share"
+                      onClick={() => handleShareStoryCard(openedStory)}
+                    >
+                      <img
+                        src={shareSymbol}
+                        alt="share-symbol"
+                        className="share-symbol-image"
+                      />
+                    </div>
+                    {isLinkCopied && (
+                      <div className="link-copied">
+                        Link copied to clipboard
+                      </div>
+                    )}
+                    <div className="slide-heading">
+                      {openedSlides[currentSlide].slide_heading}
+                    </div>
+                    <div className="slide-description">
+                      {openedSlides[currentSlide].slide_description}
+                    </div>
+                    <div
+                      className="story-card-like"
+                      onClick={() => handleLikeStoryCard(openedStory)}
+                    >
+                      <img
+                        src={
+                          loggedInUser &&
+                          loggedInUser.likes.some(
+                            (likedStory) => likedStory === openedStory._id
+                          )
+                            ? likedSymbol
+                            : unLikedSymbol
+                        }
+                        alt="unlike-symbol"
+                        className="unlike-symbol-image"
+                      />
+                    </div>
+                    <div className="story-card-likecount">
+                      <h1>{openedStory.likesCount}</h1>
+                    </div>
+                    <div
+                      className="story-card-bookmark"
+                      onClick={() => handleBookmarkStoryCard(openedStory)}
+                    >
+                      <img
+                        src={
+                          loggedInUser &&
+                          loggedInUser.bookmarks.some(
+                            (bookmarkedStory) =>
+                              bookmarkedStory._id === openedStory._id
+                          )
+                            ? bookmarkedSymbol
+                            : unBookmarkedSymbol
+                        }
+                        alt="unbookmark-symbol"
+                        className="unbookmark-symbol-image"
+                      />
+                    </div>
+                  </div>
+                  <div className="slide-progress-bar">
+                    {openedSlides.map((slide, index) => (
+                      <div
+                        key={index}
+                        className={`slide-progress-bar-item ${
+                          index === currentSlide ? "active" : ""
+                        }`}
+                      ></div>
+                    ))}
+                  </div>
+                  <div className="slide-navigation">
+                    <div
+                      className="prev-slide-arrow"
+                      onClick={handlePrevSlide}
+                      disabled={currentSlide === 0}
+                    >
+                      <img
+                        src={leftSymbol}
+                        alt="left-arrow-symbol"
+                        className="left-arrow-symbol"
+                      ></img>
+                    </div>
+                    <div
+                      className="next-slide-arrow"
+                      onClick={handleNxtSlide}
+                      disabled={currentSlide === openedSlides.length - 1}
+                    >
+                      <img
+                        src={rightSymbol}
+                        alt="right-arrow-symbol"
+                        className="right-arrow-symbol"
+                      ></img>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-        )}
-      </div>
-    </div>
-  </div>
-)}
+        </div>
+      )}
 
       {isEditStoryFormOpen && (
         <>
           <div className="overlay">
             <div className="addstory-modal">
-              <form method="POST" onSubmit={handleSubmit}>
+              <form method="POST" onSubmit={handleSubmit} id='edit-story-form'>
                 <div
                   className="close-addstoryform"
                   onClick={handleCloseAddStoryForm}
@@ -693,6 +733,11 @@ function Filter() {
                     className="close-symbol-pic"
                   ></img>
                 </div>
+                {formValidityAlertOpen && (
+                  <div className="form-validity-alert">
+                    <p>Please fill min 3 slides to post</p>
+                  </div>
+                )}
                 <div className="slides-number-message">
                   <p>Add upto 6 slides</p>
                 </div>
@@ -808,7 +853,7 @@ function Filter() {
                 </div>
                 <div className="post-story-buttons">
                   <div className="previous-next-buttons">
-                    {currentSlideIndex > 0 && (
+                    
                       <button
                         type="button"
                         className="previous-slide-button"
@@ -816,8 +861,8 @@ function Filter() {
                       >
                         Previous
                       </button>
-                    )}
-                    {currentSlideIndex < slides.length - 1 && (
+                  
+                    
                       <button
                         type="button"
                         className="next-slide-button"
@@ -825,7 +870,7 @@ function Filter() {
                       >
                         Next
                       </button>
-                    )}
+                  
                   </div>
                   <div>
                     {slides.length >= 3 && (

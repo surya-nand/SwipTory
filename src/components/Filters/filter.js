@@ -201,7 +201,7 @@ function Filter() {
         .catch((error) => {
           console.log("Failed to update user details:", error);
         });
-      await axios
+       axios
         .post(`${Base_URL}/api/categories`, category)
         .then((res) => {
           console.log("Category details updated:", res.data);

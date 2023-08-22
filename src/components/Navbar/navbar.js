@@ -6,8 +6,8 @@ import profilePic from "./../../Assets/picture.jpg";
 import hamBurger from "./../../Assets/hamburger.png";
 import hamBurger2 from "./../../Assets/hamburger.png"
 import bookmark from "./../../Assets/bookmark.jpg";
-import { useNavigate, useLocation } from "react-router";
-import { useState } from "react";
+import { useNavigate, useLocation} from "react-router";
+import { useState, useEffect } from "react";
 
 const Base_URL = "https://server-swipe.onrender.com";
 
@@ -17,6 +17,8 @@ const Navbar = () => {
   const loggedInUser = location.state && location.state.loggedInUser;
 
   const [isAddStoryFormOpen, setIsAddStoryFormOpen] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [formValidityAlertOpen, setFormValidityAlertOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMobileLoginMenuOpen, setIsMobileLoginMenuOpen] = useState(false)
@@ -40,6 +42,17 @@ const Navbar = () => {
       slide_category: "",
     },
   ]);
+
+  useEffect(() => {
+    // Check if the first 3 slides have all required fields filled
+    const firstThreeSlides = slides.slice(0, 3);
+    const areSlidesValid = firstThreeSlides.every(slide =>
+      slide.slide_heading && slide.slide_description && slide.slide_imageurl && slide.slide_category
+    );
+  
+    // Update the form's validity
+    setIsFormValid(areSlidesValid);
+  }, [slides]);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const handleRegisterButton = () => {
     navigate("/register");
@@ -158,8 +171,8 @@ const Navbar = () => {
   };
 
   const handleCloseAddStoryForm = () => {
-
     setIsAddStoryFormOpen(false);
+    setFormValidityAlertOpen(false);
   };
 
   const handleMenuButton = () => {
@@ -193,9 +206,9 @@ const Navbar = () => {
     e.preventDefault();
 
     // Validate minimum 3 slides
-    if (slides.length < 3) {
+    if (!isFormValid) {
       // Display an error message
-      alert("Please fill at least 3 slides");
+      setFormValidityAlertOpen(true);
       return;
     }
     try {
@@ -222,7 +235,7 @@ const Navbar = () => {
       };
 
       const response = await axios.post(
-        "http://localhost:5000/api/stories",
+        `${Base_URL}/api/stories`,
         story
       );
 
@@ -266,6 +279,7 @@ const Navbar = () => {
         },
       ]);
       setIsAddStoryFormOpen(false);
+      setFormValidityAlertOpen(false);
       navigate("/", {
         state: {
           loggedInUser: loggedInUser,
@@ -370,6 +384,11 @@ const Navbar = () => {
                     className="close-symbol-pic"
                   ></img>
                 </div>
+                {formValidityAlertOpen && (
+                  <div className="form-validity-alert">
+                    <p>Please fill min 3 slides to post</p>
+                  </div>
+                )}
                 <div className="slides-number-message">
                   <p>Add upto 6 slides</p>
                 </div>
@@ -399,7 +418,7 @@ const Navbar = () => {
                     )}
                     </>
                   ))}
-                  {slides.length < 6 && (
+                  {slides.length < 6  && (
                     <button
                       type="button"
                       onClick={handleAddSlide}
@@ -489,7 +508,6 @@ const Navbar = () => {
                 </div>
                 <div className="post-story-buttons">
                   <div className="previous-next-buttons">
-                    {currentSlideIndex > 0 && (
                       <button
                         type="button"
                         className="previous-slide-button"
@@ -497,8 +515,6 @@ const Navbar = () => {
                       >
                         Previous
                       </button>
-                    )}
-                    {currentSlideIndex < slides.length - 1 && (
                       <button
                         type="button"
                         className="next-slide-button"
@@ -506,7 +522,6 @@ const Navbar = () => {
                       >
                         Next
                       </button>
-                    )}
                   </div>
                   <div>
                     {slides.length >= 3 && (

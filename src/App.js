@@ -1,8 +1,8 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import Mainpage from "./components/Mainpage/mainpage";
 import Login from "./components/Login/login";
 import Register from "./components/Register/register";
+import Mainpage from "./components/Mainpage/mainpage";
 import Bookmarkpage from "./components/Bookmarkpage/bookmarkpage";
 import Mobileuserpage from "./components/mobileuserpage/mobileuserpage";
 const App = () => {

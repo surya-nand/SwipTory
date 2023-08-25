@@ -21,6 +21,7 @@
   font-weight: 700;
   line-height: normal;
   padding-left: 3%;
+  cursor: pointer;
 }
 
 .register-component,

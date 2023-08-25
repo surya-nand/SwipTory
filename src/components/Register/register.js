@@ -50,15 +50,11 @@ function Register() {
         );
         console.log(response);
         window.alert(
-          `Registration Successful! welcome ${registerData.userName}`
+          `Registration Successful! Please login to continue`
         );
         setIsRegisterFormOpen(false);
         console.log(registerData);
-        navigate("/", {
-          state: {
-            loggedInUser: registerData,
-          },
-        });
+        navigate("/");
       } catch (error) {
         console.log("Error:", error);
       }

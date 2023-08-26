@@ -564,7 +564,7 @@ function Mainpage() {
             : Stories.slice(0, 4);
           return (
             categoryStories.length > 0 && (
-              <>
+              <div key={category}>
                 <div className="story-block-title">
                   Top stories about {category}
                 </div>
@@ -573,7 +573,7 @@ function Mainpage() {
                     <div
                       className="story-card"
                       onClick={() => handleStoryCard(story)}
-                      key={story._id}
+                      key={story.unique_id}
                     >
                       <div className="story-heading">{story.storyHeading}</div>
                       <div className="story-description">
@@ -597,7 +597,7 @@ function Mainpage() {
                     ? "See Less"
                     : "See More"}
                 </div>
-              </>
+              </div>
             )
           );
         })}

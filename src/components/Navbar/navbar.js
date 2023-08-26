@@ -23,6 +23,8 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileLoginMenuOpen, setIsMobileLoginMenuOpen] = useState(false);
+
+  //first 3 empty slides
   const [slides, setSlides] = useState([
     {
       slide_heading: "",
@@ -59,13 +61,16 @@ const Navbar = () => {
     setIsFormValid(areSlidesValid);
   }, [slides]);
 
+  //Navigating Title click to main-page
   const handleTitleClick = () => {
-    navigate('/',{ 
-      state:{
-        loggedInUser: loggedInUser
-      }})
-  }
+    navigate("/", {
+      state: {
+        loggedInUser: loggedInUser,
+      },
+    });
+  };
 
+  // Slide Index to handle slide navigation
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const handleRegisterButton = () => {
     navigate("/register");
@@ -75,6 +80,7 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  //Navigates to bookmarks page with updated loggedIn user bookmarks
   const handleBookmarksButton = () => {
     axios
       .get(`${Base_URL}/api/storyUsers`)
@@ -99,6 +105,7 @@ const Navbar = () => {
     setIsAddStoryFormOpen(true);
   };
 
+  // Add slide button to add a max of 6 slides
   const handleAddSlide = () => {
     if (slides.length >= 6) return;
 
@@ -112,7 +119,7 @@ const Navbar = () => {
       },
     ]);
   };
-
+  //Updating input changes based on indexes and assigning to slides
   const handleInputChange = (index, field, value) => {
     const updatedSlides = [...slides];
     updatedSlides[index][field] = value;
@@ -122,16 +129,18 @@ const Navbar = () => {
   const handleSlideClick = (index) => {
     setCurrentSlideIndex(index);
   };
-
+  
   const handleSlideButtonClick = (e, index) => {
     e.preventDefault();
     handleSlideClick(index);
   };
 
+ //max function to make sure no negative Index 
   const handlePreviousSlide = () => {
     setCurrentSlideIndex((prevIndex) => Math.max(prevIndex - 1, 0));
   };
 
+ //min function to make sure Index doesn't go beyond slides.length
   const handleNextSlide = () => {
     setCurrentSlideIndex((prevIndex) =>
       Math.min(prevIndex + 1, slides.length - 1)
@@ -151,7 +160,6 @@ const Navbar = () => {
             : currentSlideIndex
         );
       }
-
       return updatedSlides;
     });
   };
@@ -198,6 +206,8 @@ const Navbar = () => {
       return;
     }
     try {
+      
+      //added new unique to every story posted by an user
       const newStoryId = uuidv4();
       const story = {
         unique_id: newStoryId,
@@ -288,7 +298,9 @@ const Navbar = () => {
   return (
     <div>
       <div className="navbar-component">
-        <div  className="website-title" onClick={handleTitleClick}>SwipTory</div>
+        <div className="website-title" onClick={handleTitleClick}>
+          SwipTory
+        </div>
         {loggedInUser ? (
           <>
             <div className="loggedin-component">
@@ -432,9 +444,8 @@ const Navbar = () => {
                   </div>
                   <div className="story-slides-component">
                     {slides.map((_, index) => (
-                      <>
+                      <div key={index}>
                         <button
-                          key={index}
                           onClick={(e) => handleSlideButtonClick(e, index)}
                           className={`each-slide ${
                             index === currentSlideIndex ? "selected-slide" : ""
@@ -452,7 +463,7 @@ const Navbar = () => {
                             />
                           </div>
                         )}
-                      </>
+                      </div>
                     ))}
                     {slides.length < 6 && (
                       <button

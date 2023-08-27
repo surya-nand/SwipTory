@@ -14,16 +14,16 @@
 
 .register-modal {
   position: fixed;
-  width: 50vw;
-  height: 40vh;
+  width: calc(35vw + 18vh);
+  height: calc(27vh + 12vw);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 20px;
+  padding: calc(1vw + 1vh);
   z-index: 10000;
-  border-radius: 20px;
+  border-radius: calc( 1vw + 0.8vh);
   background: #fff;
-  box-shadow: 0px 4px 30px 0px rgba(255, 255, 255, 0.25);
+  box-shadow: 0% 4% 30% 0% rgba(255, 255, 255, 0.25);
 }
 .close-symbol {
   margin-top: 5%;
@@ -35,7 +35,7 @@
   color: #000;
   text-align: center;
   font-family: DM Sans;
-  font-size: 25px;
+  font-size: calc(1.3vw + 1vh);
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -53,17 +53,18 @@
   color: #000;
   text-align: center;
   font-family: DM Sans;
-  font-size: 18px;
+  font-size: calc( 1vw + 1vh);
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   line-height: normal;
 }
 
 .user-name,
 .user-password {
   margin-left: 24%;
-  width: 20vw;
-  height: 2vh;
+  width: calc(15vw + 5vh );
+  height: calc(1vh + 1vw);
+  font-size: calc(0.8vw + 0.5vh);
 }
 .user-name {
   margin-left: 21.5%;
@@ -72,19 +73,19 @@
 .registration-details-button {
   margin-left: 39%;
   margin-top: 5%;
-  border-radius: 20px;
+  border-radius: calc( 1vw + 1vh);
   background: #73abff;
   border: none;
-  width: 10vw;
-  height: 3vh;
+  width: calc(8vw + 2vh);
+  height: calc(2vh + 1vw);
   cursor: pointer;
 }
 
 .register-text {
-  color: #000;
+  color: #000000;
   text-align: center;
   font-family: DM Sans;
-  font-size: 16px;
+  font-size: calc( 0.8vw + 1vh);
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -93,7 +94,7 @@
   color: #ff0e0e;
   text-align: center;
   font-family: DM Sans;
-  font-size: 12px;
+  font-size: calc(0.5vw + 0.5vh);
   font-style: normal;
   font-weight: 500;
   line-height: normal;

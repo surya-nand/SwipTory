@@ -76,15 +76,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 3vh;
-  width: 8vh;
-  border-radius: 5vw;
+  height: calc(1.5vh + 1vw);
+  width: calc(4vw + 2vh);
+  border-radius: calc(3vw + 2vh);
   background-color: #ffffff;
   color: #000000;
   position: relative;
   text-align: center;
   font-family: DM Sans;
-  font-size: 1.1vw;
+  font-size: calc(0.8vw + 0.6vh);
   font-style: normal;
   font-weight: 550;
   line-height: normal;
@@ -156,7 +156,7 @@
   margin-top: 1%;
   text-align: center;
   font-family: DM Sans;
-  font-size: 1.95vw;
+  font-size: calc(1.5vw + 1vh);
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -166,21 +166,24 @@
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  margin: 20px;
+  margin: calc(1vw + 1vh);
   justify-content: flex-start;
   margin-bottom: 6%;
+  gap: -3%;
+  margin-left: calc(7vw + 3vh);
 }
 .no-userstories-message {
   color: #000;
   text-align: center;
   font-family: DM Sans;
-  font-size: 1vw;
+  font-size: calc(0.7vw + 1vh);
   font-style: normal;
   font-weight: 600;
   line-height: normal;
   margin-top: 3%;
   margin-bottom: 5%;
   width: 100%;
+  margin-left: -3.5%;
 }
 
 .story-block {
@@ -210,13 +213,13 @@
   position: relative;
   text-align: center;
   font-family: DM Sans;
-  font-size: calc(1vw + 1vh);
+  font-size: calc(0.8vw + 0.5vh);
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   border-radius: calc(1vw + 1vh);
   background: #ff7373;
-  width: calc(10vw + 2vh);
+  width: calc(8vw + 2vh);
   height: calc(3vh + 1vw);
   display: flex;
   justify-content: center;
@@ -238,13 +241,13 @@
   position: relative;
   text-align: center;
   font-family: DM Sans;
-  font-size: calc(1vw + 1vh);
+  font-size: calc(0.8vw + 0.5vh);
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   border-radius: calc(1vw + 1vh);
   background: #ff7373;
-  width: calc(10vw + 2vh);
+  width: calc(8vw + 2vh);
   height: calc(3vh + 1vw);
   display: flex;
   justify-content: center;
@@ -263,17 +266,17 @@
   background-color: rgba(0, 0, 0, 0.9);
   z-index: 9999;
 }
+
 .story-card-container {
     position: fixed;
-    width: 30vw;
+    width: 34vw;
     height: 44vh;
     top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 20px;
+    padding: calc(1vw + 1vh);
     z-index: 10000;
-    border-radius: 20px;
-     /* Add the box-shadow property */
+    border-radius:calc(1vw + 1vh);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -282,12 +285,9 @@
 
 .slide-image {
   position: relative;
-  width: 27vw;
-  height: 65vh;
+  width: calc(20vw + 8vh);
+  height: calc(55vh + 8vw);
   overflow: hidden;
-  
-
-  /* background: lightgray -67.777px 0px / 139.986% 100% no-repeat; */
 }
 
 .slide-image-picture {
@@ -320,41 +320,41 @@
 
 .story-card-slide {
   position: relative;
-  margin: 20px;
+  margin: calc( 1vw + 1vh);
   max-width: 20%;
   max-height: 33vh;
   margin-bottom: 10%;
   margin-left: 4%;
-  box-shadow: lightgray -67.777px 0px / 139.986% 100% no-repeat;
+  box-shadow:  rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .slide-heading {
   position: absolute;
-  top: 126%;
+  top: 130%;
   left: 10%;
   width: 400%;
   z-index: 2;
   color: #fff;
   font-family: DM Sans;
-  font-size: 1.3vw;
+  font-size: calc(1vw + 0.5vh);
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  padding: 5px;
+  padding: 5%;
 }
 .slide-description {
   position: absolute;
   width: 400%;
-  top: 135%;
+  top: 141%;
   left: 10%;
   z-index: 2;
   color: #fff;
   font-family: DM Sans;
-  font-size: 0.65vw;
+  font-size: calc(0.4vw + 0.3vh);
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  padding: 5px;
+  padding: 5%;
 }
 
 .slide-image:before {
@@ -379,14 +379,13 @@
   z-index: 1;
 }
 
-
-
 .close-symbol-image {
   position: absolute;
   top: 12%;
   left: 26%;
   z-index: 9999;
   cursor: pointer;
+  width: calc(0.5vw + 1vh);
 }
 
 .share-symbol-image {
@@ -395,52 +394,54 @@
   left: 355%;
   z-index: 9999;
   cursor: pointer;
+  width: calc(1vw + 1vh);
 }
 
 .next-slide-arrow,.prev-slide-arrow{
-  border: blueviolet;
   border-radius: 0px;
   box-shadow: none;
   cursor: pointer;
 }
 .next-slide-arrow{
   position: absolute;
-  margin-top: -500%;
-  margin-left: 500%;
   cursor: pointer;
+  top: 80%;
+  left: 500%;
 }
 
 .prev-slide-arrow{
   position: absolute;
-  margin-top: -500%;
-  margin-left: -150%;
+  top: 82%;
+  left: -120%;
 }
 .right-arrow-symbol{
   border: none;
-  width: 30px;
+  width: calc(1.5vw + 1vh);
 }
 .left-arrow-symbol{
-  width: 30px;
+  width: calc(1.5vw + 1vh);
 }
 
 .unlike-symbol-image {
   position: absolute;
-  top: 150%;
+  top: 157.5%;
   left: 280%;
   z-index: 9999;
   cursor: pointer;
+  width: calc(1.2vw + 1vh)
 }
 .unbookmark-symbol-image {
   position: absolute;
-  top: 150%;
+  top: 157.5%;
   left: 80%;
   z-index: 9999;
   cursor: pointer;
+  width: calc(0.5vw + 1vh)
 }
 
 .story-card-likecount {
   position: absolute;
-  top: 151%;
+  top: 157.5%;
   left: 335%;
   z-index: 9999;
   color: #ffffff;
@@ -458,20 +459,28 @@
   justify-content: space-between;
   align-items: center;
   top: 6%;
-  left: 34%;
-  width: 21vw;
+  left: 21%;
+  width: calc(15vw + 10vh);
   z-index: 9999;
 }
 
 .slide-progress-bar-item {
   flex: 1;
-  height: 2px;
+  height: calc(0.15vw + 0.1vh);
   background: rgba(217, 217, 217, 0.5);
   margin-right: 4px;
 }
 
 .slide-progress-bar-item.active {
   background: #fff;
+}
+.slide-close-symbol2 {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  top: -5%;
+  left: -250%;
+  cursor: pointer;
 }
 
 @media (min-width: 320px) and (max-width: 430px) {

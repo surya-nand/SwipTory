@@ -488,6 +488,7 @@ function Mainpage() {
           </div>
         ))}
       </div>
+
       {loggedInUser && (
         <div>
           <div className="user-stories-component">
@@ -767,7 +768,7 @@ function Mainpage() {
                           <img
                             src={closeSymbol2}
                             alt="close-symbol"
-                            className="slide-close-symbol"
+                            className="slide-close-symbol2"
                             onClick={() => handleRemoveSlide(index)}
                           />
                         </div>

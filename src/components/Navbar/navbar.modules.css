@@ -291,7 +291,7 @@
 .drop-down-menu option {
   color: #474141;
   font-family: DM Sans;
-  font-size: calc(0.5vw + 1vh);
+  font-size: calc(0.5vw + 0.5vh);
   font-style: normal;
   font-weight: 550;
   line-height: normal;
@@ -311,7 +311,7 @@
   line-height: normal;
   border: none;
   width: calc(4.5vw + 3vh);
-  height:calc(0.5vw + 2vh);
+  height:calc(0.8vw + 2vh);
   cursor: pointer;
 }
 

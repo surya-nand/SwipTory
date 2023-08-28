@@ -125,14 +125,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: #ffffff;
   text-align: center;
   font-family: DM Sans;
   font-size: calc(0.8vw + 0.5vh);
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   line-height: normal;
-  background-image: url(https://tse4.mm.bing.net/th?id=OIP.RgDhX-xGGs7k-0k_go_x5QHaHa&pid=Api&P=0&h=180);
+  /* background-image: url(https://tse4.mm.bing.net/th?id=OIP.RgDhX-xGGs7k-0k_go_x5QHaHa&pid=Api&P=0&h=180); */
 }
 
 .categories-component div:hover {

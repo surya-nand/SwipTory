@@ -358,23 +358,37 @@ function Mainpage() {
       window.alert("Please login to bookmark this story");
       navigate("/login");
     }
-    console.log(loggedInUser);
   };
 
+  function getCategoryBackgroundImage(category) {
+    switch (category) {
+      case "Food":
+        return 'url("https://tse2.mm.bing.net/th?id=OIP.MgahbBqwyPewKjVPi8gV9gHaE8&pid=Api&P=0&h=180")';
+      case "Travel":
+        return 'url("https://tse4.mm.bing.net/th?id=OIP.0oMMPje_6iFgXOw0ADS7gwHaE7&pid=Api&P=0&h=180")';
+      case "Health and Fitness":
+        return 'url("https://tse1.mm.bing.net/th?id=OIP.DZtM7W0sHLxFDMfdrZKIRwHaE8&pid=Api&P=0&h=180")';
+      case "Movie":
+        return 'url("https://tse1.mm.bing.net/th?id=OIP.85gGuwI_y2AwWMvC0OjgUgHaFj&pid=Api&P=0&h=180")';
+      case "Education":
+        return 'url("https://tse1.mm.bing.net/th?id=OIP.wEs1oF6Tm9EnoH4ePo3O-QHaEK&pid=Api&P=0&h=180")';
+    }
+  }
+
   const [isLinkCopied, setIsLinkCopied] = useState(false);
-  // const getStoryLink = (openedStory) => {
-  //   return `${Base_URL}/api/stories/${openedStory._id}`;
-  // };
+  const getStoryLink = (openedStory) => {
+    return `${Base_URL}/api/stories/${openedStory.unique_id}`;
+  };
 
   const handleShareStoryCard = (openedStory) => {
-    // const link = getStoryLink(openedStory);
-    // navigator.clipboard.writeText(link);
+    const link = getStoryLink(openedStory);
+    navigator.clipboard.writeText(link);
 
     setIsLinkCopied(true);
 
     setTimeout(() => {
       setIsLinkCopied(false);
-    }, 6000);
+    }, 4000);
   };
 
   const handleLikeStoryCard = async (story) => {
@@ -415,11 +429,9 @@ function Mainpage() {
       window.alert("Please login to like this story");
       navigate("/login");
     }
-    console.log(loggedInUser);
   };
 
   const handleStoryEditButton = (e, story) => {
-    console.log(story);
     e.stopPropagation();
     setEditingStory(story);
     setIsEditStoryFormOpen(true);
@@ -468,11 +480,12 @@ function Mainpage() {
 
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <div className="categories-component">
         <div
           className={`all-categories ${selectAll ? "selected-category" : ""}`}
           onClick={() => handleCategorySelect("All")}
+          style={{ backgroundImage: `url("https://tse2.mm.bing.net/th?id=OIP.BnIrCXp1bXeoIMTqnTk_ogHaEo&pid=Api&P=0&h=180")` }}
         >
           All
         </div>
@@ -483,6 +496,7 @@ function Mainpage() {
             className={`${
               selectedCategories.includes(category) ? "selected-category" : ""
             }`}
+            style={{ backgroundImage: getCategoryBackgroundImage(category) }}
           >
             {category}
           </div>
@@ -502,7 +516,7 @@ function Mainpage() {
                       <div
                         className="story-card"
                         onClick={() => handleStoryCard(story)}
-                        key={story._id}
+                        key={story.unique_id}
                       >
                         <div className="story-heading">
                           {story.storyHeading}
@@ -541,16 +555,14 @@ function Mainpage() {
               )}
             </div>
             <div className="see-more">
-                    <div className="see-more-options">
-                      {loggedInUser.stories && (
-                        <span
-                          onClick={() => setShowAllStories(!showAllStories)}
-                        >
-                          {showAllStories ? "See Less" : "See More"}
-                        </span>
-                      )}
-                    </div>
-                  </div>
+              <div className="see-more-options">
+                {loggedInUser.stories && (
+                  <span onClick={() => setShowAllStories(!showAllStories)}>
+                    {showAllStories ? "See Less" : "See More"}
+                  </span>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       )}

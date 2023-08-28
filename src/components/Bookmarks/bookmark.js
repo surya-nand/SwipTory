@@ -9,6 +9,7 @@ import closeSymbol from "./../../Assets/close.png";
 import shareSymbol from "./../../Assets/share.png";
 import axios from "axios";
 import "./../Bookmarks/bookmark.modules.css";
+import Navbar from "../Navbar/navbar";
 const Base_URL = "https://server-swipe.onrender.com";
 
 function Bookmark() {
@@ -21,7 +22,7 @@ function Bookmark() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
- // handling story clicks
+  // handling story clicks
   const handleStoryCard = (story) => {
     setIsStoryCardOpen(true);
     setOpenedStory(story);
@@ -35,8 +36,21 @@ function Bookmark() {
     setOpenedSlides([]);
     setCurrentSlide(0);
   };
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
+  const getStoryLink = (openedStory) => {
+    return `${Base_URL}/api/stories/${openedStory.unique_id}`;
+  };
 
-  const handleShareStoryCard = () => {};
+  const handleShareStoryCard = (openedStory) => {
+    const link = getStoryLink(openedStory);
+    navigator.clipboard.writeText(link);
+
+    setIsLinkCopied(true);
+
+    setTimeout(() => {
+      setIsLinkCopied(false);
+    }, 4000);
+  };
 
   const handleBookmarkStoryCard = (Story) => {
     if (loggedInUser) {
@@ -140,17 +154,18 @@ function Bookmark() {
   ]);
   return (
     <>
+      <Navbar />
       <div className="bookmarks-component">
         <div className="bookmarks-title">
           <h1>Your Bookmarks</h1>
         </div>
         <div className="story-block">
           {loggedInUser.bookmarks.length > 0 ? (
-            loggedInUser.bookmarks.map((story) => (
+            loggedInUser.bookmarks.map((story,index) => (
               <div
                 className="story-card"
                 onClick={() => handleStoryCard(story)}
-                key={story._id}
+                key={story.unique_id}
               >
                 <div className="story-heading">{story.storyHeading}</div>
                 <div className="story-description">
@@ -166,7 +181,9 @@ function Bookmark() {
               </div>
             ))
           ) : (
-            <div className="no-bookmarks-message">Your bookmarked stories will appear here</div>
+            <div className="no-bookmarks-message">
+              Your bookmarked stories will appear here
+            </div>
           )}
           {isStoryCardOpen && (
             <div className="story-card-overlay">
@@ -250,7 +267,7 @@ function Bookmark() {
                       <div className="slide-progress-bar">
                         {openedSlides.map((slide, index) => (
                           <div
-                            key={index}
+                            key={slide.slide_description}
                             className={`slide-progress-bar-item ${
                               index === currentSlide ? "active" : ""
                             }`}

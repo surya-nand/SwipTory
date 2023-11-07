@@ -41,7 +41,7 @@ function Register() {
     if (existingUser) {
       window.alert("User already exists. Please Signin");
       setIsRegisterFormOpen(false);
-      navigate('/')
+      navigate("/");
     } else {
       try {
         const response = await axios.post(
@@ -49,9 +49,7 @@ function Register() {
           registerData
         );
         console.log(response);
-        window.alert(
-          `Registration Successful! Please login to continue`
-        );
+        window.alert(`Registration Successful! Please login to continue`);
         setIsRegisterFormOpen(false);
         console.log(registerData);
         navigate("/");

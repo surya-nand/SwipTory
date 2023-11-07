@@ -11,6 +11,7 @@ import closeSymbol2 from "./../../Assets/closesymbol.jpg";
 import shareSymbol from "./../../Assets/share.png";
 import editSymbol from "./../../Assets/edit.png";
 import { useNavigate, useLocation } from "react-router";
+import Navbar from '../Navbar/navbar'
 
 const Base_URL = "https://server-swipe.onrender.com";
 
@@ -408,6 +409,7 @@ function MobUserStory() {
 
   return (
     <>
+    <Navbar/>
       <div className="categories-component">
         <div
           className={`all-categories ${selectAll ? "selected-category" : ""}`}

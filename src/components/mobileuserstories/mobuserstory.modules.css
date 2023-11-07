@@ -6,7 +6,7 @@
   .story-card {
     position: relative;
     margin: 20px;
-    width: 40%;
+    width: 20%;
     max-height: 33vh;
     margin-bottom: 80%;
     margin-left: -1%;
@@ -240,10 +240,8 @@
 
   .story-card-slide {
     position: relative;
-    margin: 20px;
-    max-width: 20%;
-    max-height: 33vh;
-    margin-bottom: 10%;
+    margin-top: 42%;
+    min-width: 15%;
     margin-left: 4%;
   }
 
@@ -304,7 +302,7 @@
     z-index: 9999;
   }
   .close-symbol-image {
-    width: 40%;
+    width: 60%;
   }
 
   .share-symbol-image {
@@ -314,31 +312,33 @@
     z-index: 9999;
   }
   .share-symbol-image {
-    width: 60%;
+    width: 90%;
   }
 
   .unlike-symbol-image {
     position: absolute;
-    top: 285%;
+    top: 290%;
     left: 290%;
     z-index: 9999;
+    width: 80%;
   }
   .unbookmark-symbol-image {
     position: absolute;
-    top: 285%;
+    top: 290%;
     left: -80%;
     z-index: 9999;
+    width: 60%;
   }
 
   .story-card-likecount {
     position: absolute;
-    top: 285%;
-    left: 360%;
+    top: 289%;
+    left: 379%;
     z-index: 9999;
     color: #ffffff;
     color: #fff;
     font-family: DM Sans;
-    font-size: 10px;
+    font-size: 15px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -350,9 +350,9 @@
     justify-content: space-between;
     align-items: center;
     top: 6%;
-    left: -220%;
-    width: 390px;
-    height: 10px;
+    left: -200%;
+    width: 400px;
+    height: 5%;
     z-index: 9999;
   }
 

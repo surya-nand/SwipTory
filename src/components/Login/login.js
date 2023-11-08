@@ -1,83 +1,82 @@
-import React from 'react'
-import './../Login/login.modules.css'
-import { useState,useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import closeSymbol from './../../Assets/closesymbol.jpg'
+import React from "react";
+import "./../Login/login.modules.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import closeSymbol from "./../../Assets/closesymbol.jpg";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 const Base_URL = "https://server-swipe.onrender.com";
 
 function Login() {
-    const navigate = useNavigate()
-    const [isSigninFormOpen, setIsSigninFormOpen] = useState(true);
-    const [isUsernameAlertOpen, setIsUsernameAlertOpen] = useState(false);
-    const [isPasswordAlertOpen, setIsPasswordAlertOpen] = useState(false);
+  const navigate = useNavigate();
+  const [isSigninFormOpen, setIsSigninFormOpen] = useState(true);
+  const [isUsernameAlertOpen, setIsUsernameAlertOpen] = useState(false);
+  const [isPasswordAlertOpen, setIsPasswordAlertOpen] = useState(false);
 
-    const [signinData, setSigninData] = useState({
-        userName: "",
-        password: "",
-        bookmarks: [],
-        stories: [],
-        likes: []
+  const [signinData, setSigninData] = useState({
+    userName: "",
+    password: "",
+    bookmarks: [],
+    stories: [],
+    likes: [],
+  });
+
+  const [registeredUsers, setRegisteredUsers] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`${Base_URL}/api/storyUsers`)
+      .then((res) => {
+        let users_data = res.data;
+        setRegisteredUsers(users_data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
-    
-      const [registeredUsers, setRegisteredUsers] = useState([]);
-      useEffect(() => {
-        axios
-          .get(`${Base_URL}/api/storyUsers`)
-          .then((res) => {
-            let users_data = res.data;
-            setRegisteredUsers(users_data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }, []);
+  }, []);
 
-      const handleSigninFormSubmit = async (event) => {
-        event.preventDefault();
-        const existingUser = registeredUsers.find(
-          (user) =>
-            user.userName.localeCompare(signinData.userName, "en-US", {
-              sensitivity: "base",
-            }) === 0
-        );
-        if (existingUser) {
-          if (existingUser.password === signinData.password) {
-            window.alert(`Welcome ${signinData.userName}`);
-            setIsSigninFormOpen(false);
-            setIsUsernameAlertOpen(false);
-            setIsPasswordAlertOpen(false);
-            navigate("/", {
-                state: {
-                  loggedInUser: existingUser,
-                },
-              });
-          } else {
-            setIsPasswordAlertOpen(true);
-          }
-        } else {
-          setIsUsernameAlertOpen(true);
-        }
-      };
-
-      const handleSigninFormClose = () => {
+  const handleSigninFormSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(
+        `${Base_URL}/api/storyUsers/login`,
+        signinData
+      );
+      toast.info(response.data.message);
+      if (response.data.message === "Login Successful") {
+        localStorage.setItem("token", response.data.token);
+        navigate("/", {
+          state: {
+            loggedInUser: response.data.userDetails,
+          },
+        });
         setIsSigninFormOpen(false);
         setIsUsernameAlertOpen(false);
         setIsPasswordAlertOpen(false);
-        navigate("/")
-      };
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-      const handleSigninInputChange = (event) => {
-        const { name, value } = event.target;
-        setSigninData((prevState) => ({
-          ...prevState,
-          [name]: value,
-        }));
-      };
-    
+  const handleSigninFormClose = () => {
+    setIsSigninFormOpen(false);
+    setIsUsernameAlertOpen(false);
+    setIsPasswordAlertOpen(false);
+    navigate("/");
+  };
+
+  const handleSigninInputChange = (event) => {
+    const { name, value } = event.target;
+    setSigninData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
   return (
     <div>
-        {isSigninFormOpen && (
+      {isSigninFormOpen && (
         <div className="overlay">
           <div className="register-modal">
             <form method="POST" onSubmit={handleSigninFormSubmit}>
@@ -148,7 +147,7 @@ function Login() {
         </div>
       )}
     </div>
-  )
+  );
 }
 
 export default Login;

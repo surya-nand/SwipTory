@@ -4,6 +4,8 @@ import { useNavigate } from "react-router";
 import closeSymbol from "./../../Assets/closesymbol.jpg";
 import "./../Register/register.modules.css";
 import axios from "axios";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 const Base_URL = "https://server-swipe.onrender.com";
 
 function Register() {
@@ -32,30 +34,21 @@ function Register() {
   const [isRegisterFormOpen, setIsRegisterFormOpen] = useState(true);
   const handleRegisterFormSubmit = async (event) => {
     event.preventDefault();
-    const existingUser = registeredUsers.find(
-      (user) =>
-        user.userName.localeCompare(registerData.userName, "en-US", {
-          sensitivity: "base",
-        }) === 0
-    );
-    if (existingUser) {
-      window.alert("User already exists. Please Signin");
-      setIsRegisterFormOpen(false);
-      navigate("/");
-    } else {
-      try {
-        const response = await axios.post(
-          `${Base_URL}/api/storyUsers`,
-          registerData
-        );
-        console.log(response);
-        window.alert(`Registration Successful! Please login to continue`);
+    try {
+      const response = await axios.post(
+        `${Base_URL}/api/storyUsers/register`,
+        registerData
+      );
+      toast.info(response.data.message);
+      if ((response.data.message = "username already registered")) {
         setIsRegisterFormOpen(false);
-        console.log(registerData);
         navigate("/");
-      } catch (error) {
-        console.log("Error:", error);
+      } else {
+        setIsRegisterFormOpen(false);
+        navigate("/");
       }
+    } catch (error) {
+      console.log(error);
     }
   };
   const handleRegisterFormClose = () => {
